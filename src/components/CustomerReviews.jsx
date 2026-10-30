@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Star } from "lucide-react";
 
-import { reviews, getVerifiedReviews } from "@/data/reviews";
+import { reviews } from "@/data/reviews";
 import { getProductByHandle } from "@/data/products";
 
 function ReviewCard({ review }) {
@@ -116,8 +116,7 @@ function ReviewRow({ reviews, reverse = false }) {
 }
 
 export default function CustomerReviews() {
-  const verifiedReviews =
-    process.env.NODE_ENV === "development" ? reviews : getVerifiedReviews();
+  const verifiedReviews = reviews;
 
   if (verifiedReviews.length === 0) {
     return null;
