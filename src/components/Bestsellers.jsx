@@ -47,42 +47,32 @@ export default function Bestsellers() {
     <section
       ref={sectionRef}
       aria-labelledby="bestsellers-heading"
-      className="overflow-hidden bg-[#F8F7F4] py-16 sm:py-20 lg:py-28"
+      className="overflow-hidden"
     >
-      <div className="mx-auto max-w-360 px-5 sm:px-8 lg:px-12">
-
+      <div className="mx-auto max-w-390 px-4 md:px-6">
         {/* SECTION HEADING */}
         <div className="bestseller-reveal mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="mb-5 inline-flex items-center gap-3 font-sans text-[10px] font-semibold uppercase tracking-[0.25em] text-primary sm:text-xs">
-              <span className="h-px w-8 bg-primary/50" />
-              The NUOVÉ Edit
-            </span>
-
             <h2
               id="bestsellers-heading"
-              className="font-heading text-primary mb-8 text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
+              className="font-heading text-primary text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
             >
               Our <span className="italic">Bestsellers.</span>
             </h2>
           </div>
 
           <div className="max-w-85">
-            <p className="font-sans text-sm leading-[1.85] text-text/60 md:text-md">
-              Discover the formulas at the heart of NUOVÉ.
-              Thoughtfully crafted skincare essentials for
-              your everyday ritual.
+            <p className="text-text/60 md:text-md font-sans text-sm leading-[1.85]">
+              Discover the formulas at the heart of NUOVÉ. Thoughtfully crafted
+              skincare essentials for your everyday ritual.
             </p>
           </div>
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
+        <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
           {bestsellers.map((product) => (
-            <div
-              key={product.id}
-              className="bestseller-reveal min-w-0"
-            >
+            <div key={product.id} className="bestseller-reveal min-w-0">
               <ProductCard product={product} />
             </div>
           ))}
@@ -92,14 +82,13 @@ export default function Bestsellers() {
         <div className="bestseller-reveal mt-12 flex justify-center sm:mt-16">
           <Link
             href="/collections/all"
-            className="group inline-flex items-center gap-4 border-b border-primary pb-3 font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-all duration-300 hover:gap-6"
+            className="group border-primary text-primary inline-flex items-center gap-4 border-b pb-3 font-sans text-[11px] font-semibold tracking-[0.16em] uppercase transition-all duration-300 hover:gap-6"
           >
             Explore All Products
-
             <ArrowUpRight
               size={17}
               strokeWidth={1.5}
-              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
             />
           </Link>
         </div>

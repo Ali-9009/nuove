@@ -63,9 +63,9 @@ export default function BrandIntroduction() {
     <section
       ref={sectionRef}
       aria-labelledby="brand-heading"
-      className="overflow-hidden bg-[#F8F7F4] py-20 sm:py-28 lg:py-36"
+      className="overflow-hidden py-8 md:py-12"
     >
-      <div className="mx-auto max-w-360 px-6 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-390 px-4 md:px-6">
         {/* EDITORIAL CONTENT */}
         <div className="grid items-center gap-14 md:grid-cols-2 lg:gap-24">
           {/* LEFT IMAGE */}
@@ -132,7 +132,7 @@ export default function BrandIntroduction() {
 
             <div className="bg-primary/40 mb-8 h-px w-16" />
 
-            <p className="text-text/70 mb-10 text-sm leading-loose md:text-md">
+            <p className="text-text/70 md:text-md mb-10 text-sm leading-loose">
               NUOVÉ brings together peptide-focused formulations and
               thoughtfully selected complementary skincare ingredients to create
               a more elevated daily ritual. Inspired by modern science and a

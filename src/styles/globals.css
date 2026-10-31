@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Fonts */
+  /* FONTS */
   --font-sans: var(--font-manrope), sans-serif;
   --font-heading: var(--font-cormorant), serif;
 
-  /* Colors */
+  /* BRAND COLORS */
   --color-primary: #06304a;
   --color-white: #ffffff;
   --color-text: #0c0c0c;
+
+  /* SUPPORTING COLORS - PROVISIONAL */
+  --color-ivory: #f8f7f4;
+  --color-cream: #f3efe8;
+  --color-champagne: #e8dfd1;
+  --color-stone: #e8e2d8;
 }
 
 @layer base {
@@ -20,6 +26,7 @@
     background-color: var(--color-white);
     color: var(--color-text);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
 
   h1,
@@ -46,6 +53,120 @@
     color: var(--color-white);
   }
 }
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #06304a #f8f7f4;
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #f8f7f4;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #06304a;
+  border-radius: 20px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #0b4568;
+}
+
+/* ========================================
+   HORIZONTAL SLIDER
+======================================== */
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #06304a #f8f7f4;
+}
+
+/* ========================================
+   CUSTOMER REVIEWS MARQUEE
+======================================== */
+
+@keyframes reviews-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes reviews-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@utility animate-reviews-left {
+  animation: reviews-left 45s linear infinite;
+}
+
+@utility animate-reviews-right {
+  animation: reviews-right 50s linear infinite;
+}
+
+/* ========================================
+   SMOOTH SLIDER
+======================================== */
+
+@utility slider-track {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@utility slider-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-reviews-left,
+  .animate-reviews-right {
+    animation: none;
+    transform: none;
+  }
+
+  .slider-track {
+    scroll-behavior: auto;
+  }
+}
+
+
 
 
 @keyframes marquee {

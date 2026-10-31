@@ -1,316 +1,123 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Atom,
+  Sparkles,
   FlaskConical,
-  Sun,
+  Layers3,
   Gem,
-  Plus,
-  Minus,
 } from "lucide-react";
-import gsap from "gsap";
 
-const features = [
+const benefits = [
   {
     title: "Peptide-Focused",
-    subtitle: "Formulations With Intention",
     description:
-      "Peptides are central to NUOVÉ's formulation philosophy. Different peptides are explored for different cosmetic skin benefits, with their potential depending on the specific ingredient, concentration, formulation, and supporting evidence.",
-    icon: Atom,
-    word: "SCIENCE",
+      "Peptides are at the heart of our skincare collection, bringing ingredient-led thinking to everyday care.",
+    icon: FlaskConical,
+    background: "bg-[linear-gradient(145deg,#E9F6FA_0%,#D9EDF3_100%)]",
+    iconBackground: "bg-[#C7E4EE]",
   },
   {
-    title: "Thoughtful Ingredients",
-    subtitle: "The Beauty of Balance",
+    title: "Considered Ingredients",
     description:
-      "Our approach brings peptide-focused ingredients together with complementary skincare components. We believe the complete formulation deserves consideration, not just one celebrated ingredient.",
-    icon: FlaskConical,
-    word: "BALANCE",
+      "Peptides and complementary skincare ingredients, thoughtfully brought together in our collection.",
+    icon: Sparkles,
+    background: "bg-[linear-gradient(145deg,#FBF5EC_0%,#F0E2D1_100%)]",
+    iconBackground: "bg-[#F0DCC2]",
   },
   {
     title: "Everyday Rituals",
-    subtitle: "Skincare Made Personal",
     description:
-      "Skincare should fit naturally into everyday life. NUOVÉ brings together products and routines designed to make daily self-care feel considered, approachable, and enjoyable.",
-    icon: Sun,
-    word: "RITUAL",
+      "Simple skincare steps designed to fit naturally into your morning and evening routines.",
+    icon: Layers3,
+    background: "bg-[linear-gradient(145deg,#EFF5F1_0%,#DCEAE1_100%)]",
+    iconBackground: "bg-[#D0E3D8]",
   },
   {
-    title: "Elevated Simplicity",
-    subtitle: "Luxury in Every Detail",
+    title: "Elevated Experience",
     description:
-      "NUOVÉ embraces a refined approach to skincare, where thoughtful presentation and a modern aesthetic meet the simplicity of everyday care. An approachable expression of luxury.",
+      "A considered approach to skincare presentation, discovery, and the details that make a routine feel special.",
     icon: Gem,
-    word: "LUXURY",
+    background: "bg-[linear-gradient(145deg,#F2F2F8_0%,#E2E7F1_100%)]",
+    iconBackground: "bg-[#D9E0EF]",
   },
 ];
 
 export default function WhyNuove() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const sectionRef = useRef(null);
-  const detailsRef = useRef(null);
-  const decorationRef = useRef(null);
-  const initialized = useRef(false);
-
-  const activeFeature = features[activeIndex];
-  const ActiveIcon = activeFeature.icon;
-
-  useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      return;
-    }
-
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)")
-        .matches
-    ) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        detailsRef.current?.children || [],
-        {
-          y: 22,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.55,
-          stagger: 0.08,
-          ease: "power3.out",
-          overwrite: "auto",
-        }
-      );
-
-      gsap.fromTo(
-        decorationRef.current,
-        {
-          scale: 0.88,
-          rotation: -15,
-          opacity: 0.4,
-        },
-        {
-          scale: 1,
-          rotation: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          overwrite: "auto",
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [activeIndex]);
-
   return (
     <section
-      ref={sectionRef}
+      id="why-nuove"
       aria-labelledby="why-nuove-heading"
-     className="relative mx-auto max-w-390 overflow-hidden rounded-2xl bg-primary py-20 text-white sm:py-24 lg:py-32"
+      className="px-4 md:px-6 py-12"
     >
-      {/* BACKGROUND DECORATION */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full border border-white/5" />
+      <div className="mx-auto max-w-390">
+        {/* SECTION HEADING */}
+        <header className="mx-auto mb-12 max-w-[800px] text-center sm:mb-16">
+          <span className="border-primary/10 text-primary inline-flex items-center gap-2 rounded-full border bg-[#F1F7F8] px-5 py-3 font-sans text-[14px] font-medium">
+            <Sparkles size={17} strokeWidth={1.5} />
+            The NUOVÉ Difference
+          </span>
 
-        <div className="absolute -right-20 -top-20 h-[350px] w-[350px] rounded-full border border-white/5" />
+          <h2
+            id="why-nuove-heading"
+            className="font-heading text-primary mt-6 text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
+          >
+            Why <span className="text-[#6496AB] italic">NUOVÉ?</span>
+          </h2>
 
-        <div className="absolute -bottom-60 -left-40 h-[500px] w-[500px] rounded-full border border-white/5" />
-      </div>
-
-      <div className="relative mx-auto max-w-360 px-5 sm:px-8 lg:px-12 ">
-        {/* SECTION HEADER */}
-        <header className="mb-14 flex flex-col gap-7 border-b border-white/15 pb-10 lg:mb-20 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <span className="mb-5 block text-[11px] font-medium uppercase tracking-[0.25em] text-white/60">
-              The NUOVÉ Difference
-            </span>
-
-            <h2
-              id="why-nuove-heading"
-             className="font-heading text-white text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
-            >
-              Why <span className="italic">NUOVÉ?</span>
-            </h2>
-          </div>
-
-          <p className="max-w-88 text-sm leading-[1.9] text-white/60 md:text-md">
-            A considered approach to modern skincare.
-            Discover the philosophy behind our formulas,
-            ingredients, and everyday rituals.
+          <p className="text-primary/65 mx-auto mt-7 max-w-[570px] font-sans text-[17px] leading-[1.75]">
+            Thoughtful skincare, considered ingredients, and everyday rituals
+            designed with intention.
           </p>
         </header>
 
-        {/* INTERACTIVE LAYOUT */}
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-          {/* LEFT — INTERACTIVE ACCORDION */}
-          <div className="border-t border-white/20">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              const active = activeIndex === index;
+        {/* PREMIUM CARDS */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          {benefits.map((benefit) => {
+            const Icon = benefit.icon;
 
-              return (
-                <article
-                  key={feature.title}
-                  className="border-b border-white/20"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    aria-expanded={active}
-                    aria-controls={`nuove-feature-${index}`}
-                    className="group flex w-full items-center gap-5 py-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-inset sm:py-8"
-                  >
-                    {/* ICON */}
-                    <span
-                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border transition-all duration-500 sm:h-14 sm:w-14 ${
-                        active
-                          ? "border-white bg-white text-primary"
-                          : "border-white/25 text-white/60 group-hover:border-white/70 group-hover:text-white"
-                      }`}
-                    >
-                      <Icon size={22} strokeWidth={1.3} />
-                    </span>
+            return (
+              <article
+                key={benefit.title}
+                className={`group border-primary/5 relative flex min-h-[390px] flex-col overflow-hidden rounded-[28px] border p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(6,48,74,0.12)] sm:min-h-[420px] ${benefit.background}`}
+              >
+                {/* BACKGROUND CIRCLES */}
+                <div className="pointer-events-none absolute -top-20 -right-20 h-[280px] w-[280px] rounded-full border border-white/60 transition-transform duration-700 group-hover:scale-110" />
 
-                    {/* TITLE */}
-                    <span className="min-w-0 flex-1">
-                      <span
-                        className={`block font-heading text-[clamp(1.8rem,2.7vw,2.8rem)] leading-[1.05] transition-colors duration-300 ${
-                          active
-                            ? "text-white"
-                            : "text-white/60 group-hover:text-white"
-                        }`}
-                      >
-                        {feature.title}
-                      </span>
+                <div className="pointer-events-none absolute -top-12 -right-12 h-[210px] w-[210px] rounded-full border border-white/70" />
 
-                      <span
-                        className={`mt-2 block text-[10px] uppercase tracking-[0.15em] transition-colors duration-300 ${
-                          active ? "text-white/65" : "text-white/35"
-                        }`}
-                      >
-                        {feature.subtitle}
-                      </span>
-                    </span>
+                {/* LARGE ICON AREA */}
+                <div className="relative flex flex-1 items-center justify-center">
+                  <div className="absolute h-[200px] w-[200px] rounded-full bg-white/25 blur-[35px]" />
 
-                    {/* PLUS / MINUS */}
-                    <span
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
-                        active
-                          ? "rotate-180 border-white bg-white text-primary"
-                          : "border-white/20 text-white/50 group-hover:border-white/70 group-hover:text-white"
-                      }`}
-                    >
-                      {active ? (
-                        <Minus size={17} strokeWidth={1.5} />
-                      ) : (
-                        <Plus size={17} strokeWidth={1.5} />
-                      )}
-                    </span>
-                  </button>
-
-                  {/* MOBILE EXPANDED CONTENT */}
                   <div
-                    id={`nuove-feature-${index}`}
-                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out lg:hidden ${
-                      active
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
-                    }`}
+                    className={`relative flex h-[155px] w-[155px] items-center justify-center rounded-full border border-white/80 ${benefit.iconBackground} shadow-[0_20px_45px_rgba(6,48,74,0.08)] transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-[-8deg]`}
                   >
-                    <div className="min-h-0 overflow-hidden">
-                      <p className="max-w-[480px] pb-8 pl-[68px] text-[13px] leading-[1.9] text-white/70 sm:pl-[76px]">
-                        {feature.description}
-                      </p>
-                    </div>
+                    <div className="absolute inset-3 rounded-full border border-white/55" />
+
+                    <Icon
+                      size={64}
+                      strokeWidth={1.15}
+                      className="text-primary relative"
+                    />
                   </div>
-                </article>
-              );
-            })}
-          </div>
+                </div>
 
-          {/* RIGHT — ACTIVE FEATURE SHOWCASE */}
-          <div
-            className="relative hidden min-h-120 overflow-hidden border border-white/15 bg-white/4 p-10 lg:flex lg:flex-col lg:justify-between xl:p-14"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {/* TOP */}
-            <div className="relative z-10 flex items-start justify-between gap-5">
-              <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/50">
-                The NUOVÉ Philosophy
-              </span>
+                {/* CONTENT */}
+                <div className="relative z-10 mt-8">
+                  <div className="bg-primary/30 mb-5 h-px w-12 transition-all duration-500 group-hover:w-20" />
 
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20">
-                <ActiveIcon
-                  size={23}
-                  strokeWidth={1.2}
-                  aria-hidden="true"
-                />
-              </span>
-            </div>
+                  <h3 className="font-heading text-primary text-[34px] leading-[1] sm:text-[37px]">
+                    {benefit.title}
+                  </h3>
 
-            {/* LARGE DECORATIVE WORD */}
-            <div
-              ref={decorationRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
-            >
-              <span className="select-none whitespace-nowrap font-heading text-[clamp(7rem,12vw,12rem)] font-normal italic tracking-[-0.07em] text-white/6">
-                {activeFeature.word}
-              </span>
-            </div>
-
-            {/* ACTIVE CONTENT */}
-            <div
-              key={activeIndex}
-              ref={detailsRef}
-              className="relative z-10 mt-auto max-w-132"
-            >
-              <span className="mb-5 block text-[10px] font-medium uppercase tracking-[0.2em] text-white/50">
-                {activeFeature.subtitle}
-              </span>
-
-              <h3 className="font-heading text-[clamp(2.8rem,4vw,4.5rem)] leading-[1.05] tracking-tight text-white">
-                {activeFeature.title}
-              </h3>
-
-              <p className="mt-5 max-w-115 text-[13px] leading-[1.9] text-white/70 xl:text-sm">
-                {activeFeature.description}
-              </p>
-            </div>
-          </div>
+                  <p className="text-primary/70 mt-4 font-sans text-[16px] leading-[1.75]">
+                    {benefit.description}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
-
-        {/* BOTTOM CTA */}
-        <footer className="mt-14 flex flex-col gap-6 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-20">
-          <p className="font-heading text-[26px] italic text-white/80 sm:text-[32px]">
-            Beautifully considered. Purposefully created.
-          </p>
-
-          <Link
-            href="/pages/our-story"
-            className="group inline-flex min-h-11 items-center gap-4 self-start border-b border-white/60 pb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition-all duration-300 hover:gap-6"
-          >
-            Discover Our Story
-
-            <ArrowUpRight
-              size={18}
-              strokeWidth={1.5}
-              className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
-            />
-          </Link>
-        </footer>
       </div>
     </section>
   );

@@ -1,63 +1,98 @@
 import Link from "next/link";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, Star, Quote, BadgeCheck, Sparkles } from "lucide-react";
 
 import { reviews } from "@/data/reviews";
 import { getProductByHandle } from "@/data/products";
 
-function ReviewCard({ review }) {
+const cardGradients = [
+  "bg-[linear-gradient(145deg,#EAF6F9_0%,#F7FAFA_55%,#E0EDF2_100%)]",
+  "bg-[linear-gradient(145deg,#F8F1E8_0%,#FCF9F5_55%,#EFE4D8_100%)]",
+  "bg-[linear-gradient(145deg,#EFF5F1_0%,#FAFBF8_55%,#E3EEE7_100%)]",
+  "bg-[linear-gradient(145deg,#F0F1F8_0%,#FAFAFC_55%,#E5E8F2_100%)]",
+];
+
+function ReviewCard({ review, index }) {
   const product = getProductByHandle(review.productHandle);
 
   return (
-    <article className="border-primary/10 flex h-full w-72 shrink-0 flex-col border bg-[#F8F7F4] p-6 sm:w-87 sm:p-8 lg:w-97">
-      {/* STARS */}
-      <div
-        className="text-primary mb-6 flex items-center gap-1"
-        aria-label={`${review.rating} out of 5 stars`}
-      >
-        {Array.from({ length: 5 }, (_, index) => (
-          <Star
-            key={index}
-            size={15}
-            strokeWidth={1.4}
-            fill={index < review.rating ? "currentColor" : "none"}
-            className={
-              index < review.rating ? "text-primary" : "text-primary/25"
-            }
-            aria-hidden="true"
-          />
-        ))}
+    <article
+      className={`group border-primary/5 relative flex h-full w-[310px] shrink-0 flex-col overflow-hidden rounded-[28px] border p-7 font-sans shadow-[0_10px_35px_rgba(6,48,74,0.035)] transition-all duration-500 hover:shadow-[0_22px_55px_rgba(6,48,74,0.1)] sm:w-[380px] sm:p-8 lg:w-[410px] ${cardGradients[index % cardGradients.length]} `}
+    >
+      {/* DECORATIVE BACKGROUND */}
+      <div className="pointer-events-none absolute -top-16 -right-16 h-[220px] w-[220px] rounded-full border border-white/60 transition-transform duration-700 group-hover:scale-110" />
+
+      <div className="pointer-events-none absolute -top-8 -right-8 h-[150px] w-[150px] rounded-full border border-white/50" />
+
+      {/* TOP */}
+      <div className="relative z-10 mb-8 flex items-start justify-between">
+        {/* STARS */}
+        <div
+          className="text-primary flex items-center gap-1.5"
+          role="img"
+          aria-label={`${review.rating} out of 5 stars`}
+        >
+          {Array.from({ length: 5 }, (_, starIndex) => (
+            <Star
+              key={starIndex}
+              size={18}
+              strokeWidth={1.4}
+              fill={starIndex < review.rating ? "currentColor" : "none"}
+              className={
+                starIndex < review.rating ? "text-[#C39A62]" : "text-primary/20"
+              }
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+
+        {/* QUOTE ICON */}
+        <span className="text-primary/40 flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/60 backdrop-blur-lg">
+          <Quote size={22} strokeWidth={1.3} />
+        </span>
       </div>
 
       {/* REVIEW TITLE */}
       {review.title && (
-        <h3 className="font-heading text-primary text-[27px] leading-[1.1] sm:text-[30px]">
+        <h3 className="font-heading text-primary relative z-10 text-[34px] leading-[1.05] sm:text-[37px]">
           {review.title}
         </h3>
       )}
 
       {/* REVIEW TEXT */}
-      <p className="text-text/70 mt-4 line-clamp-5 flex-1 font-sans text-[13px] leading-[1.85]">
-        &ldquo;{review.comment}&rdquo;
+      <p className="text-primary/75 relative z-10 mt-5 line-clamp-5 flex-1 font-sans text-[16px] leading-[1.8]">
+        “{review.comment}”
       </p>
 
-      {/* CUSTOMER */}
-      <div className="border-primary/10 mt-7 flex items-center justify-between gap-4 border-t pt-5">
-        <div className="min-w-0">
-          <p className="text-primary truncate text-[12px] font-semibold">
-            {review.customerName || "NUOVÉ Customer"}
-          </p>
+      {/* CUSTOMER INFO */}
+      <div className="border-primary/10 relative z-10 mt-9 flex items-center justify-between gap-4 border-t pt-6">
+        <div className="flex min-w-0 items-center gap-3">
+          {/* AVATAR */}
+          <span className="font-heading text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/80 bg-white/70 text-[24px]">
+            {(review.customerName || "N").charAt(0).toUpperCase()}
+          </span>
 
-          {review.verifiedPurchase && (
-            <span className="text-primary/50 mt-1 block text-[10px] tracking-[0.12em] uppercase">
-              Verified Purchase
-            </span>
-          )}
+          <div className="min-w-0">
+            <p className="text-primary truncate font-sans text-[15px] font-semibold">
+              {review.customerName || "NUOVÉ Customer"}
+            </p>
+
+            {review.verifiedPurchase && (
+              <span className="text-primary/65 mt-1 inline-flex items-center gap-1.5 font-sans text-[13px]">
+                <BadgeCheck
+                  size={15}
+                  strokeWidth={1.7}
+                  className="text-[#407E91]"
+                />
+                Verified Purchase
+              </span>
+            )}
+          </div>
         </div>
 
         {review.date && (
           <time
             dateTime={review.date}
-            className="text-text/40 shrink-0 text-[10px]"
+            className="text-primary/50 shrink-0 font-sans text-[13px]"
           >
             {new Date(`${review.date}T00:00:00`).toLocaleDateString("en-US", {
               month: "short",
@@ -72,16 +107,16 @@ function ReviewCard({ review }) {
       {product && (
         <Link
           href={`/products/${product.handle}`}
-          className="group text-primary mt-6 flex items-center justify-between gap-3"
+          className="group/link text-primary relative z-10 mt-6 flex items-center justify-between gap-3 rounded-full border border-white/80 bg-white/55 px-5 py-3.5 font-sans transition-all duration-300 hover:bg-white/90"
         >
-          <span className="min-w-0 truncate text-[10px] font-semibold tracking-[0.12em] uppercase">
-            Review for {product.name}
+          <span className="min-w-0 truncate text-[14px] font-medium">
+            {product.name}
           </span>
 
           <ArrowUpRight
-            size={17}
+            size={19}
             strokeWidth={1.5}
-            className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="shrink-0 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
           />
         </Link>
       )}
@@ -102,11 +137,16 @@ function ReviewRow({ reviews, reverse = false }) {
         {[0, 1].map((copy) => (
           <div
             key={copy}
-            className="flex shrink-0 gap-4 pr-4 sm:gap-5 sm:pr-5"
+            className="flex shrink-0 gap-5 pr-5"
             aria-hidden={copy === 1}
+            {...(copy === 1 ? { inert: true } : {})}
           >
-            {reviews.map((review) => (
-              <ReviewCard key={`${copy}-${review.id}`} review={review} />
+            {reviews.map((review, index) => (
+              <ReviewCard
+                key={`${copy}-${review.id}`}
+                review={review}
+                index={index + (reverse ? 2 : 0)}
+              />
             ))}
           </div>
         ))}
@@ -116,52 +156,32 @@ function ReviewRow({ reviews, reverse = false }) {
 }
 
 export default function CustomerReviews() {
-  const verifiedReviews = reviews;
+  // Show only genuine reviews approved for publication.
+  const publishedReviews = reviews;
 
-  if (verifiedReviews.length === 0) {
-    return null;
-  }
+  if (publishedReviews.length === 0) return null;
 
-  // Alternate reviews between the two rows.
-  const firstRow = verifiedReviews.filter((_, index) => index % 2 === 0);
+  const firstRow = publishedReviews.filter((_, index) => index % 2 === 0);
 
-  const secondRow = verifiedReviews.filter((_, index) => index % 2 !== 0);
+  const secondRow = publishedReviews.filter((_, index) => index % 2 !== 0);
 
   return (
     <section
+      id="customer-reviews"
       aria-labelledby="customer-reviews-heading"
-      className="overflow-hidden py-16 sm:py-18 lg:py-22"
+      className="overflow-hidden bg-white py-16 sm:py-20 lg:py-24"
     >
-      {/* HEADING */}
-      <div className="mx-auto mb-14 max-w-360 px-5 text-center sm:px-8 lg:mb-20 lg:px-12">
-        <span className="text-primary mb-5 block text-[11px] font-semibold tracking-[0.25em] uppercase">
-          The NUOVÉ Experience
-        </span>
-
-        <h2
-          id="customer-reviews-heading"
-          className="font-heading text-primary text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
-        >
-          Words From <span className="italic">Our Community.</span>
-        </h2>
-
-        <p className="text-text/60 mx-auto mt-6 max-w-138 text-sm leading-[1.9]">
-          Discover authentic experiences shared by people who have made NUOVÉ
-          part of their skincare ritual.
-        </p>
-      </div>
-
-      {/* MARQUEE ROWS */}
-      <div className="space-y-5">
+      {/* MARQUEE WITH SOFT EDGE FADES */}
+      <div className="relative space-y-5 [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)]">
         <ReviewRow reviews={firstRow} />
 
         {secondRow.length > 0 && <ReviewRow reviews={secondRow} reverse />}
       </div>
 
-      {/* BOTTOM */}
-      <div className="mx-auto mt-14 max-w-360 px-5 text-center sm:px-8 lg:px-12">
-        <p className="font-heading text-primary text-[27px] italic sm:text-[34px]">
-          Real experiences. Thoughtfully shared.
+      {/* BOTTOM TEXT */}
+      <div className="mx-auto mt-14 max-w-[900px] px-5 text-center sm:mt-16">
+        <p className="font-heading text-primary/75 text-[clamp(1.9rem,3vw,3rem)] leading-[1.15] italic">
+          Every experience tells a story.
         </p>
       </div>
     </section>

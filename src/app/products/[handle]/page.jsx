@@ -1,12 +1,19 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
 
-import { products, getProductByHandle, formatPrice } from "@/data/products";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import PrimaryButton from "@/components/PrimaryButton";
-import ProductCard from "@/components/ProductCard";
+import {
+  products,
+  getProductByHandle,
+  getProductDetails,
+} from "@/data/products";
+import { reviews } from "@/data/reviews";
+import { routines } from "@/data/routines";
+
+import ProductDetails from "@/components/product/ProductDetails";
+import ProductRec from "@/components/product/ProductRec";
+import RecentlyViewed from "@/components/product/RecentlyViewed";
 
 export function generateStaticParams() {
   return products.map((product) => ({
@@ -16,7 +23,6 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { handle } = await params;
-
   const product = getProductByHandle(handle);
 
   if (!product) {
@@ -26,9 +32,16 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${product.name} | NUOVÉ`,
+    title: product.name,
     description: product.description,
   };
+}
+
+function getCuratedProducts(handles = [], currentHandle) {
+  return handles
+    .filter((handle) => handle !== currentHandle)
+    .map((handle) => getProductByHandle(handle))
+    .filter(Boolean);
 }
 
 export default async function ProductPage({ params }) {
@@ -36,133 +49,127 @@ export default async function ProductPage({ params }) {
 
   const product = getProductByHandle(handle);
 
-  if (!product) {
-    notFound();
-  }
+  if (!product) notFound();
 
-  const relatedProducts = products
-    .filter(
-      (item) =>
-        item.id !== product.id &&
-        item.concerns.some((concern) => product.concerns.includes(concern)),
-    )
-    .slice(0, 4);
+  const details = getProductDetails(product.handle);
+
+  const completeRoutine = getCuratedProducts(
+    details.completeRoutine,
+    product.handle,
+  );
+
+  const frequentlyPaired = getCuratedProducts(
+    details.frequentlyPaired,
+    product.handle,
+  );
+
+  const pairings = getCuratedProducts(
+    [...(details.completeRoutine || []), ...(details.frequentlyPaired || [])],
+    product.handle,
+  );
+
+  const matchingBundles = routines.filter(
+    (routine) =>
+      (details.bundleSlugs || []).includes(routine.slug) &&
+      routine.productHandles.includes(product.handle),
+  );
 
   return (
     <main className="min-h-screen">
-      <div className="mx-auto max-w-360 px-6 py-12 lg:px-12">
-        {/* BACK LINK */}
-        <Link
-          href="/"
-          className="text-primary mb-10 inline-flex items-center gap-2 text-xs hover:opacity-60"
+      <div className="mx-auto max-w-360 px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+        {/* BREADCRUMB */}
+        <nav
+          aria-label="Breadcrumb"
+          className="text-text/50 mb-10 flex flex-wrap items-center gap-2 text-[11px]"
         >
-          <ArrowLeft size={16} />
-          Back to Home
-        </Link>
+          <Link href="/" className="hover:text-primary">
+            Home
+          </Link>
 
-        {/* PRODUCT DETAILS */}
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="grid grid-cols-2 gap-3">
-            {[product.image, ...(product.gallery || [])]
-              .filter((src, index, arr) => src && arr.indexOf(src) === index)
-              .map((src, index) => (
-                <figure
-                  key={`${product.handle}-${index}`}
-                  className="relative aspect-[3/4] overflow-hidden bg-[#F7F6F3]"
-                >
-                  <Image
-                    src={src}
-                    alt={`${product.name} - View ${index + 1}`}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 45vw, 25vw"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
+          <span>/</span>
 
-                  <figcaption className="sr-only">
-                    {product.name} - Product image {index + 1}
-                  </figcaption>
-                </figure>
-              ))}
-          </div>
+          <Link href="/collections/all" className="hover:text-primary">
+            Shop
+          </Link>
 
-          {/* PRODUCT INFORMATION */}
-          <div className="flex flex-col lg:sticky lg:top-28 lg:self-start">
-            <span className="text-primary mb-5 text-[11px] font-semibold tracking-[0.25em] uppercase">
-              NUOVÉ / {product.category}
-            </span>
+          <span>/</span>
 
-            <h1 className="font-heading text-primary text-[clamp(3.5rem,5vw,6rem)] leading-[0.95]">
-              {product.name}
-            </h1>
+          <span className="text-primary">{product.name}</span>
+        </nav>
 
-            {/* PRICE */}
-            <div className="mt-8 flex items-center gap-4">
-              <span className="text-primary text-xl font-medium">
-                {formatPrice(product.price)}
-              </span>
+        {/* MAIN PRODUCT EXPERIENCE */}
+        <ProductDetails
+          product={product}
+          details={details}
+          reviews={reviews}
+          pairings={pairings}
+        />
 
-              {product.compareAtPrice > product.price && (
-                <span className="text-text/40 text-base line-through">
-                  {formatPrice(product.compareAtPrice)}
-                </span>
-              )}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-8 h-px bg-black/10" />
-
-            {/* DESCRIPTION */}
-            <p className="text-text/70 max-w-[500px] text-sm leading-[2] sm:text-base">
-              {product.description}
-            </p>
-
-            {/* STOCK */}
-            <div className="mt-8 flex items-center gap-2 text-sm">
-              {product.available ? (
-                <>
-                  <Check size={17} className="text-primary" />
-                  <span className="text-primary">In Stock</span>
-                </>
-              ) : (
-                <span className="text-text/50">Sold Out</span>
-              )}
-            </div>
-
-            {/* CART PLACEHOLDER */}
-            <div className="mt-8 max-w-[440px]">
-              <PrimaryButton disabled className="w-full">
-                Add to Bag — Coming Soon
-              </PrimaryButton>
-            </div>
-
-            <p className="text-text/50 mt-4 text-xs">
-              Shopping cart functionality will be connected in the next
-              development stage.
-            </p>
-          </div>
+        {/* COMPLETE YOUR ROUTINE */}
+        <div className="mt-20 lg:mt-32">
+          <ProductRec
+            title="Complete Your Routine."
+            subtitle="The Perfect Pairing"
+            products={completeRoutine}
+          />
         </div>
 
-        {/* RELATED PRODUCTS */}
-        {relatedProducts.length > 0 && (
-          <section className="mt-24 border-t border-black/10 pt-16 lg:mt-32">
-            <div className="mb-12">
-              <span className="text-primary mb-4 block text-[11px] font-semibold tracking-[0.2em] uppercase">
-                Discover More
-              </span>
+        {/* FREQUENTLY PAIRED */}
+        <ProductRec
+          title="Frequently Paired With."
+          subtitle="Discover Complementary Care"
+          products={frequentlyPaired}
+        />
 
-              <h2 className="font-heading text-primary text-[clamp(2.8rem,4vw,4.5rem)] leading-none">
-                You May Also <span className="italic">Love.</span>
-              </h2>
-            </div>
+        {/* SHOP THE SET */}
+        {matchingBundles.length > 0 && (
+          <section className="border-primary/15 border-t py-16 lg:py-24">
+            <div className="grid items-center gap-10 bg-[#F8F7F4] p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:p-16">
+              <div>
+                <span className="text-primary mb-5 block text-[10px] font-semibold tracking-[0.2em] uppercase">
+                  The NUOVÉ Ritual
+                </span>
 
-            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
-              {relatedProducts.map((item) => (
-                <ProductCard key={item.id} product={item} />
-              ))}
+                <h2 className="font-heading text-primary text-[clamp(2.8rem,4vw,4.7rem)] leading-none">
+                  Better <span className="italic">Together.</span>
+                </h2>
+
+                <p className="text-text/60 mt-6 max-w-md text-sm leading-[1.9]">
+                  Explore curated skincare systems featuring this formulation.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {matchingBundles.map((routine) => (
+                  <Link
+                    key={routine.slug}
+                    href={`/routines/${routine.slug}`}
+                    className="group border-primary/15 flex min-h-20 items-center justify-between gap-4 border-b py-5"
+                  >
+                    <div>
+                      <span className="text-primary/50 mb-2 block text-[10px] tracking-wider uppercase">
+                        {routine.subtitle}
+                      </span>
+
+                      <h3 className="font-heading text-primary text-2xl sm:text-3xl">
+                        {routine.name}
+                      </h3>
+                    </div>
+
+                    <ArrowUpRight
+                      size={22}
+                      strokeWidth={1.4}
+                      className="text-primary shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         )}
+
+        {/* RECENTLY VIEWED */}
+        <RecentlyViewed currentHandle={product.handle} />
       </div>
     </main>
   );

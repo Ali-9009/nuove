@@ -1,12 +1,15 @@
 import "@/styles/globals.css";
+import "remixicon/fonts/remixicon.css";
 
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-cormorant",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const manrope = Manrope({
@@ -16,8 +19,12 @@ const manrope = Manrope({
 });
 
 export const metadata = {
-  title: "NUOVE | Luxury Skincare",
-  description: "Discover NUOVE — a refined skincare experience.",
+  title: {
+    default: "NUOVÉ | Elevated Skincare",
+    template: "%s | NUOVÉ",
+  },
+  description:
+    "Discover NUOVÉ, an elevated approach to everyday skincare with peptide-focused formulations and thoughtfully curated routines.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -28,10 +35,11 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
       <body className="text-text bg-white font-sans antialiased">
         <Header />
-
-        <div className="h-[108px] lg:h-[124px]" aria-hidden="true" />
+        
+        {/* <div className="h-[108px] lg:h-20" aria-hidden="true" /> */}
 
         {children}
+        <Footer />
       </body>
     </html>
   );
