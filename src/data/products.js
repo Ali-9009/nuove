@@ -17,6 +17,7 @@ export const products = [
       "/assets/barrier-peptide-serum-3.jpg",
       "/assets/barrier-peptide-serum-4.jpg",
       "/assets/barrier-peptide-serum-5.jpg",
+      "/assets/barrier-peptide-serum-6.jpg",
     ],
 
     description:
@@ -151,6 +152,7 @@ export const products = [
       "/assets/multi-peptide-firming-cream-2.jpg",
       "/assets/multi-peptide-firming-cream-3.jpg",
       "/assets/multi-peptide-firming-cream-4.jpg",
+      "/assets/multi-peptide-firming-cream-5.jpg",
     ],
 
     description:
@@ -276,6 +278,7 @@ export const products = [
       "/assets/vitamin-c-peptide-brightening-serum-3.jpg",
       "/assets/vitamin-c-peptide-brightening-serum-4.jpg",
       "/assets/vitamin-c-peptide-brightening-serum-5.jpg",
+      "/assets/vitamin-c-peptide-brightening-serum-6.jpg",
     ],
 
     description:
@@ -409,6 +412,7 @@ export const products = [
       "/assets/soothing-peptide-cleanser-4.jpg",
       "/assets/soothing-peptide-cleanser-5.jpg",
       "/assets/soothing-peptide-cleanser-6.jpg",
+      "/assets/soothing-peptide-cleanser-7.jpg",
     ],
 
     description:
@@ -537,6 +541,7 @@ export const products = [
       "/assets/pure-ceramide-barrier-cream-2.jpg",
       "/assets/pure-ceramide-barrier-cream-3.jpg",
       "/assets/pure-ceramide-barrier-cream-4.jpg",
+      "/assets/pure-ceramide-barrier-cream-5.jpg",
     ],
 
     description:
@@ -646,7 +651,7 @@ export const products = [
     id: 6,
     handle: "overnight-peptide-mask",
     name: "Overnight Peptide Mask",
-    category: "Masks",
+    category: "Treatments & Masks",
 
     price: 52,
 
@@ -657,6 +662,7 @@ export const products = [
     gallery: [
       "/assets/overnight-peptide-mask-2.jpg",
       "/assets/overnight-peptide-mask-3.jpg",
+      "/assets/overnight-peptide-mask-4.jpg",
     ],
 
     description:
@@ -780,6 +786,7 @@ export const products = [
       "/assets/360-peptide-eye-complex-2.jpg",
       "/assets/360-peptide-eye-complex-3.jpg",
       "/assets/360-peptide-eye-complex-4.jpg",
+      "/assets/360-peptide-eye-complex-5.jpg",
     ],
 
     description:
@@ -905,6 +912,7 @@ export const products = [
     gallery: [
       "/assets/retinol-barrier-cream-2.jpg",
       "/assets/retinol-barrier-cream-3.jpg",
+      "/assets/retinol-barrier-cream-4.jpg",
     ],
 
     description:
@@ -1022,6 +1030,148 @@ export const products = [
 
     bestseller: true,
     bestsellerOrder: 1,
+  },
+
+  {
+    id: 9,
+    handle: "purifying-peptide-cleanser",
+    name: "Purifying Peptide Cleanser",
+    category: "Cleansers",
+
+    price: 32,
+
+    rating: 4.8,
+    reviewCount: 124,
+
+    image: "/assets/purifying-peptide-cleanser.jpg",
+    gallery: [
+      "/assets/purifying-peptide-cleanser-2.jpg",
+      "/assets/purifying-peptide-cleanser-3.jpg",
+      "/assets/purifying-peptide-cleanser-4.jpg",
+      "/assets/purifying-peptide-cleanser-5.jpg",
+    ],
+
+    description:
+      "A refreshing peptide-focused facial cleanser concept designed to remove everyday impurities while complementing a balanced skincare routine.",
+
+    positioning:
+      "A refreshing daily cleanser designed for a clean, comfortable-feeling complexion.",
+
+    // Placeholder sizes
+    size: "150 ml",
+
+    variants: [
+      {
+        id: "purifying-cleanser-150ml",
+        name: "150 ml",
+        label: "150 ml",
+        size: "150 ml",
+        amount: 150,
+        unit: "ml",
+        price: 32,
+        available: true,
+      },
+      {
+        id: "purifying-cleanser-200ml",
+        name: "200 ml",
+        label: "200 ml",
+        size: "200 ml",
+        amount: 200,
+        unit: "ml",
+        price: 42,
+        available: true,
+      },
+    ],
+
+    benefits: [
+      "Designed to cleanse away everyday impurities.",
+      "Complements a daily skincare routine.",
+      "Leaves skin feeling fresh and comfortable.",
+    ],
+
+    overview:
+      "The Purifying Peptide Cleanser is a concept for an everyday facial cleansing ritual. Designed to help wash away surface impurities, excess oil, and daily buildup, it offers a refreshing first step before serums and moisturizers. Its peptide-focused positioning complements the NUOVÉ approach to considered skincare.",
+
+    // Illustrative ingredients only — not a verified formula
+    keyIngredients: [
+      {
+        name: "Peptides",
+        role: "Cosmetic ingredients used in a variety of skincare formulations.",
+      },
+      {
+        name: "Glycerin",
+        role: "A humectant commonly used to help retain moisture.",
+      },
+      {
+        name: "Panthenol",
+        role: "A skin-conditioning ingredient commonly used in skincare.",
+      },
+    ],
+
+    // Illustrative INCI — replace with approved formulation
+    inci: [
+      "Aqua",
+      "Glycerin",
+      "Cocamidopropyl Betaine",
+      "Decyl Glucoside",
+      "Panthenol",
+      "Sodium Chloride",
+      "Phenoxyethanol",
+      "Ethylhexylglycerin",
+    ],
+
+    howToUse:
+      "Apply a small amount to damp skin and gently massage across the face. Rinse thoroughly with lukewarm water. Follow with your preferred serum and moisturizer. Avoid direct contact with the eyes.",
+
+    frequency:
+      "Morning and evening, according to skin needs and the approved product directions.",
+
+    whoItsFor:
+      "Designed as a daily cleansing option for routines focused on freshness, gentle cleansing, and comfortable-feeling skin.",
+
+    texture: "Refreshing gel cleanser.",
+
+    routineStep: "Step 1 — Cleanse.",
+
+    faqs: [
+      {
+        question: "When should I use the Purifying Peptide Cleanser?",
+        answer:
+          "Use as the first step of your skincare routine, before applying serums and moisturizers.",
+      },
+      {
+        question: "Can I use this cleanser every day?",
+        answer:
+          "The proposed routine allows for daily cleansing. Follow the final product label and adjust usage according to your skin's needs.",
+      },
+      {
+        question: "Should I apply serum after cleansing?",
+        answer:
+          "Yes. After rinsing and gently drying your skin, you can follow with your preferred serum and moisturizer.",
+      },
+      {
+        question:
+          "What is the difference between this and the Soothing Peptide Cleanser?",
+        answer:
+          "The Purifying Peptide Cleanser is positioned around refreshing cleansing, while the Soothing Peptide Cleanser is positioned around a more comforting cleansing experience. Actual differences depend on the approved formulations.",
+      },
+    ],
+
+    completeRoutine: ["barrier-peptide-serum", "pure-ceramide-barrier-cream"],
+
+    frequentlyPaired: [
+      "vitamin-c-peptide-brightening-serum",
+      "multi-peptide-firming-cream",
+    ],
+
+    bundleSlugs: [],
+
+    available: true,
+
+    concerns: ["hydrate-restore", "calm-balance"],
+
+    featured: false,
+    bestseller: false,
   },
 ];
 

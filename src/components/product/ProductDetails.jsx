@@ -58,10 +58,9 @@ function ProductGallery({ product }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 sm:grid sm:grid-cols-[85px_minmax(0,1fr)] sm:items-start sm:gap-4 lg:grid-cols-[95px_minmax(0,1fr)] lg:gap-5">
-      {/* LEFT — THUMBNAILS */}
+    <div className="flex min-w-0 flex-col gap-3 sm:grid sm:grid-cols-[85px_minmax(0,1fr)] sm:items-stretch sm:gap-4 lg:grid-cols-[95px_minmax(0,1fr)] lg:gap-5">
       {/* THUMBNAILS */}
-      <div className="order-2 flex w-full gap-2 overflow-x-auto pb-2 sm:order-1 sm:max-h-[650px] sm:w-auto sm:flex-col sm:overflow-x-hidden sm:overflow-y-auto sm:pb-0 lg:max-h-185">
+      <div className="order-2 flex w-full min-w-0 [scrollbar-width:none] gap-2 overflow-x-auto overscroll-x-contain pb-2 sm:relative sm:order-1 sm:h-0 sm:min-h-full sm:w-auto sm:flex-col sm:overflow-x-hidden sm:overflow-y-auto sm:overscroll-y-contain sm:pr-1 sm:pb-0 [&::-webkit-scrollbar]:hidden">
         {images.map((src, index) => (
           <button
             key={`${product.handle}-${index}`}
@@ -69,9 +68,9 @@ function ProductGallery({ product }) {
             onClick={() => handleImageChange(index)}
             aria-label={`View ${product.name} image ${index + 1}`}
             aria-pressed={selectedImage === index}
-            className={`relative aspect-[3/4] w-[65px] shrink-0 overflow-hidden rounded-[8px] bg-[#F8F8F7] transition-all duration-300 sm:w-full ${
+            className={`relative aspect-[3/4] w-[65px] shrink-0 overflow-hidden rounded-xl bg-[#F8F8F7] transition-opacity duration-200 sm:w-full ${
               selectedImage === index
-                ? "ring-primary ring-2 ring-inset"
+                ? "ring-primary opacity-100 ring-2 ring-inset"
                 : "opacity-75 hover:opacity-100"
             }`}
           >
@@ -79,7 +78,7 @@ function ProductGallery({ product }) {
               src={src}
               alt={`${product.name}, thumbnail ${index + 1}`}
               fill
-              sizes="(max-width: 640px) 64px, (max-width: 1024px) 85px, 95px"
+              sizes="(max-width: 640px) 65px, (max-width: 1024px) 85px, 95px"
               className="object-cover"
             />
           </button>
@@ -877,32 +876,41 @@ export default function ProductDetails({
       {/* MOBILE STICKY ADD TO BAG */}
       <div
         aria-hidden={!showStickyBar}
-        className={`border-primary/10 fixed right-0 bottom-0 left-0 z-40 border-t bg-white/95 px-4 py-3 shadow-[0_-5px_25px_rgba(0,0,0,0.05)] backdrop-blur-lg transition-transform duration-300 lg:hidden ${
+        className={`border-primary/10 fixed right-0 bottom-0 left-0 z-40 border-t bg-white/95 px-4 py-3 shadow-[0_-8px_35px_rgba(6,48,74,0.06)] backdrop-blur-xl transition-transform duration-300 lg:hidden ${
           showStickyBar
             ? "translate-y-0"
             : "pointer-events-none translate-y-full"
         }`}
       >
         <div className="mx-auto flex max-w-xl items-center gap-3">
+          {/* PRODUCT INFO */}
           <div className="min-w-0 flex-1">
-            <p className="text-primary truncate text-[11px] font-semibold">
+            <p className="text-primary truncate font-sans text-[13px] font-medium">
               {product.name}
             </p>
 
-            <p className="font-heading text-primary mt-1 text-xl">
+            <p className="text-primary mt-1 font-sans text-[18px] font-semibold">
               {formatPrice(price)}
             </p>
           </div>
 
+          {/* ADD TO BAG */}
           <button
             type="button"
             disabled={!available || !showStickyBar}
             onClick={handleAddToCart}
             tabIndex={showStickyBar ? 0 : -1}
-            className="bg-primary flex min-h-12 items-center gap-2 px-5 text-[11px] font-semibold tracking-wider text-white uppercase disabled:opacity-40"
+            className="group bg-primary flex min-h-[54px] shrink-0 items-center gap-4 rounded-full py-1.5 pr-1.5 pl-5 font-sans text-[13px] font-semibold text-white transition-colors duration-300 hover:bg-[#0A4263] disabled:cursor-not-allowed disabled:opacity-40 sm:pl-6"
           >
-            <ShoppingBag size={17} />
             {available ? "Add to Bag" : "Sold Out"}
+
+            <span className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8EDF3]">
+              <ShoppingBag
+                size={18}
+                strokeWidth={1.5}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+            </span>
           </button>
         </div>
       </div>

@@ -218,7 +218,7 @@ export default function Hero() {
                   {/* PRODUCT DETAILS */}
                   <div className="flex items-start justify-between gap-3 px-2 py-2 font-sans">
                     <div className="min-w-0">
-                      <p className="text-sm text-white">
+                      <p className="text-sm text-primary">
                         Featured Skincare
                       </p>
 
