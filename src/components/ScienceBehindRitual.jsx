@@ -74,50 +74,41 @@ function IngredientCard({ ingredient }) {
 
       {/* DEFAULT VIEW */}
       <div
-  aria-hidden={open}
-  className={`absolute inset-0 flex flex-col items-center justify-center px-5 py-6 text-center transition-all duration-500 sm:px-6 sm:py-9 lg:justify-between lg:pt-12 lg:pb-9 ${
-    open ? "-translate-y-8 opacity-0" : "translate-y-0 opacity-100"
-  }`}
->
-  {/* LABEL */}
-  <span className="shrink-0 rounded-full border border-white/80 bg-white/60 px-4 py-2 font-sans text-[13px] font-medium text-primary backdrop-blur-md">
-    {ingredient.label}
-  </span>
+        aria-hidden={open}
+        className={`absolute inset-0 flex flex-col items-center justify-center px-5 py-6 text-center transition-all duration-500 sm:px-6 sm:py-9 lg:justify-between lg:pt-12 lg:pb-9 ${
+          open ? "-translate-y-8 opacity-0" : "translate-y-0 opacity-100"
+        }`}
+      >
+        {/* LABEL */}
+        <span className="text-primary shrink-0 rounded-full border border-white/80 bg-white/60 px-4 py-2 font-sans text-[13px] font-medium backdrop-blur-md">
+          {ingredient.label}
+        </span>
 
-  {/* ICON */}
-  <div
-    className="
-      relative my-5 flex h-24 w-24 shrink-0 items-center
-      justify-center rounded-full border border-white/80
-      bg-white/65 shadow-[0_18px_45px_rgba(6,48,74,0.09)]
-      backdrop-blur-md
-      sm:my-7 sm:h-28 sm:w-28
-      lg:my-auto lg:h-36 lg:w-36
-    "
-  >
-    <Icon
-      size={42}
-      strokeWidth={1.2}
-      className="text-primary sm:h-12 sm:w-12 lg:h-[58px] lg:w-[58px]"
-    />
-  </div>
+        {/* ICON */}
+        <div className="relative my-5 flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-white/80 bg-white/65 shadow-[0_18px_45px_rgba(6,48,74,0.09)] backdrop-blur-md sm:my-7 sm:h-28 sm:w-28 lg:my-auto lg:h-36 lg:w-36">
+          <Icon
+            size={42}
+            strokeWidth={1.2}
+            className="text-primary sm:h-12 sm:w-12 lg:h-[58px] lg:w-[58px]"
+          />
+        </div>
 
-  {/* CONTENT */}
-  <div className="shrink-0">
-    <h3 className="font-heading text-[38px] leading-none text-primary sm:text-[44px] lg:text-[46px]">
-      {ingredient.name}
-    </h3>
+        {/* CONTENT */}
+        <div className="shrink-0">
+          <h3 className="font-heading text-primary text-[38px] leading-none sm:text-[44px] lg:text-[46px]">
+            {ingredient.name}
+          </h3>
 
-    <p className="mx-auto mt-3 max-w-[260px] font-sans text-[15px] leading-[1.6] text-primary/70 lg:mt-4">
-      {ingredient.description}
-    </p>
+          <p className="text-primary/70 mx-auto mt-3 max-w-[260px] font-sans text-[15px] leading-[1.6] lg:mt-4">
+            {ingredient.description}
+          </p>
 
-    <span className="mt-4 inline-flex items-center gap-2 font-sans text-[14px] font-semibold text-primary lg:hidden">
-      Tap to explore
-      <ArrowUpRight size={17} />
-    </span>
-  </div>
-</div>
+          <span className="text-primary mt-4 inline-flex items-center gap-2 font-sans text-[14px] font-semibold lg:hidden">
+            Tap to explore
+            <ArrowUpRight size={17} />
+          </span>
+        </div>
+      </div>
 
       {/* HOVER VIEW */}
       <div
@@ -193,9 +184,9 @@ export default function ScienceBehindRitual() {
     <section
       id="science"
       aria-labelledby="science-heading"
-      className="px-4 md:px-6 py-12 lg:py-20"
+      className="px-4 py-12 md:px-6 lg:py-20"
     >
-      <div className="mx-auto max-w-390 rounded-[30px] bg-linear-to-b from-[#EAF6F8] to-[#F8F7F4] px-5 py-16 sm:rounded-[38px] sm:px-8 lg:px-12 lg:py-20">
+      <div className="mx-auto max-w-360 rounded-[30px] bg-linear-to-b from-[#EAF6F8] to-[#F8F7F4] px-5 py-16 sm:rounded-[38px] sm:px-8 lg:px-12 lg:py-20">
         <header className="mx-auto max-w-200 text-center">
           <h2
             id="science-heading"

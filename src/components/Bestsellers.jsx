@@ -49,7 +49,7 @@ export default function Bestsellers() {
       aria-labelledby="bestsellers-heading"
       className="overflow-hidden"
     >
-      <div className="mx-auto max-w-390 px-4 md:px-6">
+      <div className="mx-auto max-w-360 px-4 md:px-6">
         {/* SECTION HEADING */}
         <div className="bestseller-reveal mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
           <div>
@@ -70,7 +70,7 @@ export default function Bestsellers() {
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
           {bestsellers.map((product) => (
             <div key={product.id} className="bestseller-reveal min-w-0">
               <ProductCard product={product} />

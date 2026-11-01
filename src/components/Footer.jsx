@@ -60,10 +60,11 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="text-primary relative overflow-hidden">
-      <div className="mx-auto max-w-[1600px] px-5 pt-16 sm:px-8 sm:pt-20 lg:px-12 lg:pt-24">
+    <footer className="text-primary relative overflow-hidden bg-[#F8F7F4]">
+      {" "}
+      <div className="mx-auto max-w-360 px-4 pt-16 sm:px-8 sm:pt-20 md:px-6 lg:pt-24">
         {/* MAIN FOOTER */}
-        <div className="grid gap-12 pb-8 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr] lg:gap-16">
           {/* LEFT — BRAND */}
           <div className="max-w-[430px]">
             <Link
@@ -138,17 +139,12 @@ export default function Footer() {
           </nav>
         </div>
       </div>
-
-      {/* =====================================
-          OVERSIZED NUOVÉ BRAND TYPOGRAPHY
-      ===================================== */}
-      {/* FULL-WIDTH NUOVÉ WORDMARK */}
       <div
         aria-hidden="true"
-        className="pointer-events-none relative w-full overflow-hidden"
+        className="pointer-events-none relative mx-auto max-w-360 overflow-hidden"
       >
         <svg
-          viewBox="0 0 1000 210"
+          viewBox="0 0 1000 240"
           preserveAspectRatio="none"
           className="block h-auto w-full"
           role="presentation"
@@ -161,15 +157,17 @@ export default function Footer() {
               x2="0"
               y2="1"
             >
-              <stop offset="0%" stopColor="#A8BCC3" />
-              <stop offset="50%" stopColor="#CDD6D7" />
-              <stop offset="100%" stopColor="#F8F7F4" />
+              <stop offset="0%" stopColor="#A8BCC3" stopOpacity="0.9" />
+              <stop offset="25%" stopColor="#B8C9CE" stopOpacity="0.7" />
+              <stop offset="50%" stopColor="#CDD6D7" stopOpacity="0.4" />
+              <stop offset="75%" stopColor="#E2E8E8" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
             </linearGradient>
           </defs>
 
           <text
             x="0"
-            y="196"
+            y="215"
             textLength="1000"
             lengthAdjust="spacingAndGlyphs"
             fontFamily="Cormorant Garamond, Georgia, serif"

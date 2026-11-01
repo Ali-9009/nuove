@@ -54,44 +54,33 @@ export default function EmailSignup() {
       aria-labelledby="newsletter-heading"
       className="px-4 md:px-6"
     >
-      <div className="relative mx-auto max-w-[1600px] overflow-hidden rounded-[28px] bg-[linear-gradient(110deg,#DDF1F5_0%,#F7F9F7_50%,#F2EDE5_100%)] px-6 py-14 sm:rounded-[36px] sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+      <div className="relative mx-auto max-w-360 overflow-hidden rounded-3xl bg-[linear-gradient(110deg,#DDF1F5_0%,#F7F9F7_50%,#F2EDE5_100%)] px-5 py-12 sm:px-8 md:py-18">
         {/* SOFT BACKGROUND GLOW */}
         <div className="pointer-events-none absolute -top-32 -left-32 h-[400px] w-[400px] rounded-full bg-[#B9E1E9]/30 blur-[100px]" />
 
         <div className="pointer-events-none absolute -right-20 -bottom-40 h-[450px] w-[450px] rounded-full bg-[#F3DCC6]/30 blur-[110px]" />
 
         {/* CONTENT */}
-        <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
-          {/* LEFT CONTENT */}
-          <div>
-            <span className="text-primary/65 font-sans text-[15px] font-medium">
-              Join the NUOVÉ Circle
-            </span>
-
+        <div className="relative z-10 mx-auto flex w-full max-w-[800px] flex-col items-center gap-10 text-center">
+          {/* CENTER CONTENT */}
+          <div className="flex flex-col items-center text-center">
             <h2
               id="newsletter-heading"
-              className="font-heading text-primary mt-5 text-[clamp(3.3rem,5.5vw,6rem)] leading-[0.95] tracking-[-0.035em]"
+              className="font-heading text-primary mt-5 text-[clamp(3rem,5.5vw,6rem)] leading-[0.95] tracking-[-0.035em]"
             >
               Your Invitation to
               <br />
               <span className="text-[#6F9FB4] italic">Elevated Skincare.</span>
             </h2>
 
-            <p className="text-primary/65 mt-6 max-w-[480px] font-sans text-[17px] leading-[1.75]">
+            <p className="text-primary/65 mt-6 max-w-[520px] font-sans text-[17px] leading-[1.75]">
               Discover new formulas, skincare rituals, and exclusive updates.
             </p>
           </div>
 
-          {/* RIGHT FORM */}
-          <div className="w-full">
-            <form onSubmit={handleSubmit}>
-              <label
-                htmlFor="newsletter-email"
-                className="text-primary mb-5 block font-sans text-[18px] font-medium"
-              >
-                Be the first to know.
-              </label>
-
+          {/* CENTER FORM */}
+          <div className="w-full max-w-[580px] min-w-0">
+            <form onSubmit={handleSubmit} className="w-full">
               {/* EMAIL INPUT */}
               <div className="focus-within:border-primary/30 focus-within:ring-primary/5 flex w-full min-w-0 items-center gap-2 rounded-full border border-white/80 bg-white/90 p-1.5 pl-4 shadow-[0_12px_40px_rgba(6,48,74,0.06)] transition-all duration-300 focus-within:ring-4 sm:pl-5">
                 <input
@@ -142,7 +131,7 @@ export default function EmailSignup() {
               </div>
 
               {/* CONSENT */}
-              <label className="mt-5 flex cursor-pointer items-start gap-3">
+              <label className="mt-5 flex cursor-pointer items-start justify-center gap-3 text-left">
                 <input
                   type="checkbox"
                   checked={agreed}

@@ -8,16 +8,12 @@ export default function ShopByConcern() {
   return (
     <section
       aria-labelledby="skin-concern-heading"
-      className="overflow-hidden py-16 sm:py-20 lg:py-28"
+      className="overflow-hidden py-12 md:py-18"
     >
-      <div className="mx-auto max-w-390 px-4 md:px-6">
+      <div className="mx-auto max-w-360 px-4 md:px-6">
         {/* SECTION HEADING */}
         <div className="mb-10 flex flex-col gap-5 sm:mb-14 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="text-primary mb-4 block font-sans text-[10px] font-semibold tracking-[0.25em] uppercase sm:text-xs">
-              Discover Your Ritual
-            </span>
-
             <h2
               id="skin-concern-heading"
               className="font-heading text-primary text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
@@ -38,7 +34,7 @@ export default function ShopByConcern() {
               <Link
                 href={`/skin-concerns/${concern.slug}`}
                 aria-label={`Explore ${concern.title}`}
-                className="relative block aspect-4/5 overflow-hidden bg-[#F3F1ED]"
+                className="relative block aspect-4/5 overflow-hidden rounded-2xl"
               >
                 {/* BACKGROUND IMAGE */}
                 <Image
@@ -49,11 +45,11 @@ export default function ShopByConcern() {
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08] motion-reduce:transition-none"
                 />
 
-                {/* DEFAULT BOTTOM GRADIENT */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061F30]/90 via-[#061F30]/25 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
+                {/* DEFAULT BOTTOM linear */}
+                <div className="absolute inset-0 bg-linear-to-t from-[#061F30]/90 via-[#061F30]/25 to-transparent transition-opacity duration-500 group-hover:opacity-0" />
 
-                {/* HOVER GRADIENT */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061F30]/95 via-[#061F30]/75 to-[#061F30]/20 opacity-0 transition-opacity duration-700 group-focus-within:opacity-100 group-hover:opacity-100 max-lg:opacity-100" />
+                {/* HOVER linear */}
+                <div className="absolute inset-0 bg-linear-to-t from-[#061F30]/95 via-[#061F30]/75 to-[#061F30]/20 opacity-0 transition-opacity duration-700 group-focus-within:opacity-100 group-hover:opacity-100 max-lg:opacity-100" />
 
                 {/* DEFAULT CONTENT */}
                 <div className="absolute inset-x-0 bottom-0 z-10 p-6 transition-all duration-500 group-focus-within:translate-y-5 group-focus-within:opacity-0 group-hover:translate-y-5 group-hover:opacity-0 max-lg:hidden">
@@ -61,7 +57,7 @@ export default function ShopByConcern() {
                     {concern.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[260px] text-sm leading-[1.7] text-white/75">
+                  <p className="mt-3 max-w-65 text-sm leading-[1.7] text-white/75">
                     {concern.description}
                   </p>
 
@@ -80,17 +76,12 @@ export default function ShopByConcern() {
                     {concern.title}
                   </h3>
 
-                  <p className="mt-4 max-w-[260px] text-sm leading-[1.8] text-white/85">
+                  <p className="mt-4 max-w-65 text-sm leading-[1.8] text-white/85">
                     {concern.description}
                   </p>
 
                   {/* EXTRA HOVER DETAILS */}
-                  <div className="mt-6 border-t border-white/25 pt-5">
-                    <p className="text-xs leading-[1.7] text-white/70">
-                      Explore thoughtfully selected NUOVÉ products and discover
-                      a skincare routine tailored to this concern.
-                    </p>
-
+                  <div>
                     {/* CTA */}
                     <span className="group-hover:text-primary mt-6 flex items-center justify-between gap-3 rounded-full border border-white/50 bg-white/15 py-2 pr-2 pl-5 text-white backdrop-blur-md transition-colors duration-300 group-hover:bg-white">
                       <span className="text-[10px] font-semibold tracking-[0.13em] uppercase">

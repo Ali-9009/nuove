@@ -88,11 +88,11 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <article className="group min-w-0">
+    <article className="group flex h-full min-w-0 flex-col">
       {/* ========================================
           PRODUCT IMAGE
       ======================================== */}
-      <div className="relative aspect-4/5 overflow-hidden rounded-[20px] bg-[#F8F7F4] sm:rounded-[25px]">
+      <div className="relative aspect-4/5 overflow-hidden rounded-3xl">
         {/* IMAGE LINK */}
         <Link
           href={`/products/${product.handle}`}
@@ -174,7 +174,7 @@ export default function ProductCard({ product }) {
       {/* ========================================
           PRODUCT INFORMATION
       ======================================== */}
-      <div className="px-1 pt-5">
+      <div className="flex flex-1 flex-col px-1 pt-5">
         {/* VERIFIED RATINGS */}
         {rating !== null && (
           <div className="mb-3 flex items-center gap-2">
@@ -203,26 +203,28 @@ export default function ProductCard({ product }) {
         )}
 
         {/* PRODUCT NAME */}
+        {/* PRODUCT NAME */}
         <Link href={`/products/${product.handle}`} className="block">
-          <h3 className="font-heading text-primary hover:text-primary/70 text-[24px] leading-[1.05] transition-colors duration-300 sm:text-[24px]">
+          <h3 className="text-primary hover:text-primary/70 min-h-10 font-sans text-[17px] leading-[1.45] font-medium transition-colors duration-300 sm:text-[18px]">
             {product.name}
           </h3>
         </Link>
 
         {/* PRICE AND SIZE */}
-        <div className="mt-4 flex flex-wrap items-center gap-2.5">
-          <span className="text-primary text-md font-semibold">
+
+        <div className="mt-2 flex flex-wrap items-center gap-2.5">
+          <span className="text-primary font-sans text-[16px] font-semibold">
             {formatPrice(product.price)}
           </span>
 
           {hasDiscount && (
-            <span className="text-text/35 text-md line-through">
+            <span className="text-text/35 font-sans text-[15px] line-through">
               {formatPrice(product.compareAtPrice)}
             </span>
           )}
 
           {product.size && (
-            <span className="border-primary/15 text-primary/70 rounded-full border px-3 py-1 text-xs">
+            <span className="border-primary/15 text-primary/70 rounded-full border px-3 py-1 font-sans text-[13px]">
               {product.size}
             </span>
           )}
@@ -233,7 +235,7 @@ export default function ProductCard({ product }) {
           type="button"
           disabled={!product.available}
           onClick={handleAddToCart}
-          className="text-primary hover:bg-primary focus-visible:outline-primary mt-5 flex min-h-[49px] w-full items-center justify-center gap-3 rounded-full border border-gray-400 bg-transparent px-5 text-sm font-semibold tracking-[0.12em] uppercase transition-all duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-[52px]"
+          className="text-primary hover:bg-primary focus-visible:outline-primary mt-5 flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-gray-400 bg-transparent px-5 text-sm font-semibold tracking-[0.12em] uppercase transition-all duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 sm:min-h-13"
         >
           {added ? (
             <>

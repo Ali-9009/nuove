@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,17 +19,13 @@ import {
 import { getProductByHandle, formatPrice } from "@/data/products";
 import { addToCart } from "@/lib/cart";
 
-/* ==========================================
-   SLIDES — CHANGE YOUR LOCAL IMAGES HERE
-========================================== */
+//  SLIDES — CHANGE YOUR LOCAL IMAGES HERE
 
 const slides = [
   {
     id: "serum",
     handle: "barrier-peptide-serum",
     image: "/assets/barrier.png",
-
-    eyebrow: "THE SIGNATURE SERUM",
     title: "A Ritual",
     highlight: "of Hydration.",
 
@@ -65,8 +61,6 @@ const slides = [
     id: "firming",
     handle: "multi-peptide-firming-cream",
     image: "/assets/peptide.png",
-
-    eyebrow: "THE DAILY MOISTURIZER",
     title: "The Art",
     highlight: "of Firmness.",
 
@@ -102,8 +96,6 @@ const slides = [
     id: "ceramide",
     handle: "pure-ceramide-barrier-cream",
     image: "/assets/ceramide.png",
-
-    eyebrow: "THE BARRIER RITUAL",
     title: "A Moment",
     highlight: "of Comfort.",
 
@@ -136,11 +128,9 @@ const slides = [
   },
 ];
 
-/* ==========================================
-   FEATURE CARD
-========================================== */
+// FEATURE CARD
 
-function FeatureCard({ feature, delay = 0 }) {
+function FeatureCard({ feature, delay = 0, animate = true }) {
   const Icon = feature.icon;
 
   return (
@@ -148,11 +138,15 @@ function FeatureCard({ feature, delay = 0 }) {
       style={{
         animationDelay: `${delay}ms`,
       }}
-      className={`flex min-h-[125px] animate-[featurePop_650ms_cubic-bezier(0.22,1,0.36,1)_both] items-start gap-4 rounded-[22px] border p-5 font-sans shadow-[0_14px_40px_rgba(6,48,74,0.045)] backdrop-blur-xl transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(6,48,74,0.12)] motion-reduce:animate-none ${
+      className={`flex items-start gap-4 rounded-[22px] border p-5 font-sans shadow-[0_14px_40px_rgba(6,48,74,0.045)] backdrop-blur-xl transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(6,48,74,0.12)] ${
+        animate
+          ? "animate-[featurePop_650ms_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+          : "opacity-0"
+      } ${
         feature.dark
           ? "border-primary bg-primary text-white"
           : "text-primary border-white/90 bg-white/75"
-      } `}
+      }`}
     >
       {/* ICON */}
       <span
@@ -183,13 +177,11 @@ function FeatureCard({ feature, delay = 0 }) {
   );
 }
 
-/* ==========================================
-   PRODUCT IMAGE
-========================================== */
+//  PRODUCT IMAGE
 
 function ShowcaseImage({ slide, product, priority = false }) {
   return (
-    <div className="relative flex h-[280px] w-full items-center justify-center sm:h-[340px] lg:h-[390px]">
+    <div className="relative flex h-70 w-full items-center justify-center sm:h-[340px] lg:h-[390px]">
       {/* SOFT BACKGROUND GLOW */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/65 blur-[65px] sm:h-[330px] sm:w-[330px]" />
 
@@ -215,9 +207,7 @@ function ShowcaseImage({ slide, product, priority = false }) {
   );
 }
 
-/* ==========================================
-   PURCHASE BAR
-========================================== */
+// PURCHASE BAR
 
 function PurchaseBar({ product }) {
   const [added, setAdded] = useState(false);
@@ -287,12 +277,48 @@ function PurchaseBar({ product }) {
   );
 }
 
-/* ==========================================
-   MAIN COMPONENT
-========================================== */
+//  MAIN COMPONENT
 
 export default function BuildYourRoutine() {
+  const sectionRef = useRef(null);
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  // Start only when the section enters the viewport
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+
+        if (entry.isIntersecting) {
+          setHasEntered(true);
+        }
+      },
+      {
+        threshold: 0.25,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-change slide every 2 seconds while visible
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % slides.length);
+    }, 5000);
+
+    return () => window.clearInterval(interval);
+  }, [isVisible]);
 
   const slide = slides[activeIndex];
   const product = getProductByHandle(slide.handle);
@@ -309,17 +335,18 @@ export default function BuildYourRoutine() {
 
   return (
     <section
+      ref={sectionRef}
       id="signature-ritual"
       aria-labelledby="signature-heading"
-      className="px-4 md:px-6 py-8 lg:py-14"
+      className="px-4 py-12 md:px-6 md:py-18"
     >
       <div
-        className="relative mx-auto max-w-390 overflow-hidden rounded-[28px] px-5 py-12 sm:rounded-[38px] sm:px-9 sm:py-14 lg:px-12 lg:py-16"
+        className="relative mx-auto max-w-360 overflow-hidden rounded-[28px] px-5 py-12 sm:rounded-[38px] sm:px-9 sm:py-14 lg:px-12 lg:py-16"
         style={{
           background: slide.background,
         }}
       >
-        <div className="relative mx-auto max-w-[1400px]">
+        <div className="relative mx-auto max-w-350">
           {/* TOP NAVIGATION */}
           <div className="flex items-center justify-between gap-4">
             <span className="text-primary inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-2.5 text-[12px] font-medium backdrop-blur-lg sm:text-[13px]">
@@ -351,14 +378,14 @@ export default function BuildYourRoutine() {
           {/* SLIDE — RE-MOUNTS FOR SMOOTH TRANSITION */}
           <div
             key={slide.id}
-            className="animate-[showcaseReveal_650ms_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+            className={
+              hasEntered
+                ? "animate-[showcaseReveal_650ms_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+                : "opacity-0 motion-reduce:opacity-100"
+            }
           >
             {/* HEADING */}
-            <header className="mx-auto mt-7 max-w-[1000px] text-center sm:mt-9">
-              <span className="text-[12px] font-semibold tracking-[0.16em] text-[#508DA8] uppercase">
-                {slide.eyebrow}
-              </span>
-
+            <header className="mx-auto mt-7 max-w-250 text-center sm:mt-9">
               <h2
                 id="signature-heading"
                 className="font-heading text-primary text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
@@ -373,7 +400,7 @@ export default function BuildYourRoutine() {
                 DESKTOP: 3 COLUMNS
                 MOBILE: IMAGE FIRST, CARDS BELOW
             ===================================== */}
-            <div className="mx-auto mt-8 grid max-w-[1300px] grid-cols-1 items-center gap-6 sm:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)_minmax(0,1fr)] lg:gap-5 xl:gap-10">
+            <div className="mx-auto mt-8 grid max-w-325 grid-cols-1 items-center gap-6 sm:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)_minmax(0,1fr)] lg:gap-5 xl:gap-10">
               {/* CENTER IMAGE */}
               <div className="order-1 min-w-0 lg:order-2">
                 <ShowcaseImage
@@ -385,16 +412,32 @@ export default function BuildYourRoutine() {
 
               {/* LEFT FEATURES */}
               <div className="order-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:order-1 lg:grid-cols-1 lg:gap-10 xl:gap-14">
-                <FeatureCard feature={slide.features[0]} delay={300} />
+                <FeatureCard
+                  feature={slide.features[0]}
+                  delay={300}
+                  animate={hasEntered}
+                />
 
-                <FeatureCard feature={slide.features[2]} delay={900} />
+                <FeatureCard
+                  feature={slide.features[2]}
+                  delay={900}
+                  animate={hasEntered}
+                />
               </div>
 
               {/* RIGHT FEATURES */}
               <div className="order-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 lg:gap-10 xl:gap-14">
-                <FeatureCard feature={slide.features[1]} delay={600} />
+                <FeatureCard
+                  feature={slide.features[1]}
+                  delay={600}
+                  animate={hasEntered}
+                />
 
-                <FeatureCard feature={slide.features[3]} delay={1200} />
+                <FeatureCard
+                  feature={slide.features[3]}
+                  delay={1200}
+                  animate={hasEntered}
+                />
               </div>
             </div>
 
@@ -413,7 +456,6 @@ export default function BuildYourRoutine() {
                 key={item.id}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                aria-label={`Show ${item.eyebrow.toLowerCase()}`}
                 aria-pressed={index === activeIndex}
                 className={`h-2 rounded-full transition-all duration-500 ${
                   index === activeIndex

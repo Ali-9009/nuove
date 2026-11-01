@@ -47,16 +47,11 @@ export default function WhyNuove() {
     <section
       id="why-nuove"
       aria-labelledby="why-nuove-heading"
-      className="px-4 md:px-6 py-12"
+      className="px-4 py-12 md:px-6"
     >
-      <div className="mx-auto max-w-390">
+      <div className="mx-auto max-w-360">
         {/* SECTION HEADING */}
-        <header className="mx-auto mb-12 max-w-[800px] text-center sm:mb-16">
-          <span className="border-primary/10 text-primary inline-flex items-center gap-2 rounded-full border bg-[#F1F7F8] px-5 py-3 font-sans text-[14px] font-medium">
-            <Sparkles size={17} strokeWidth={1.5} />
-            The NUOVÉ Difference
-          </span>
-
+        <header className="mx-auto mb-12 max-w-200 text-center sm:mb-16">
           <h2
             id="why-nuove-heading"
             className="font-heading text-primary mt-6 text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
@@ -64,7 +59,7 @@ export default function WhyNuove() {
             Why <span className="text-[#6496AB] italic">NUOVÉ?</span>
           </h2>
 
-          <p className="text-primary/65 mx-auto mt-7 max-w-[570px] font-sans text-[17px] leading-[1.75]">
+          <p className="text-primary/65 mx-auto mt-7 max-w-142 font-sans text-[17px] leading-[1.75]">
             Thoughtful skincare, considered ingredients, and everyday rituals
             designed with intention.
           </p>
