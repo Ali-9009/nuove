@@ -171,44 +171,52 @@ export default function ProductCard({ product }) {
         )}
       </div>
 
-      {/* ========================================
-          PRODUCT INFORMATION
-      ======================================== */}
+      {/* PRODUCT INFORMATION */}
       <div className="flex flex-1 flex-col px-1 pt-5">
-        {/* VERIFIED RATINGS */}
-        {rating !== null && (
-          <div className="mb-3 flex items-center gap-2">
-            <div
-              className="text-primary flex items-center gap-0.5"
-              aria-label={`${rating.toFixed(1)} out of 5 stars`}
-            >
-              {Array.from({ length: 5 }, (_, index) => (
-                <Star
-                  key={index}
-                  size={12}
-                  strokeWidth={1.5}
-                  fill={index < Math.round(rating) ? "currentColor" : "none"}
-                />
-              ))}
-            </div>
-
-            <span className="text-primary text-[11px] font-semibold">
-              {rating.toFixed(1)}
-            </span>
-
-            <span className="text-text/45 text-[10px]">
-              ({productReviews.length} reviews)
-            </span>
-          </div>
-        )}
-
-        {/* PRODUCT NAME */}
         {/* PRODUCT NAME */}
         <Link href={`/products/${product.handle}`} className="block">
           <h3 className="text-primary hover:text-primary/70 min-h-10 font-sans text-[17px] leading-[1.45] font-medium transition-colors duration-300 sm:text-[18px]">
             {product.name}
           </h3>
         </Link>
+
+        {/* PRODUCT RATINGS */}
+        {typeof product.rating === "number" &&
+          product.rating >= 0 &&
+          product.rating <= 5 &&
+          Number.isInteger(product.reviewCount) &&
+          product.reviewCount > 0 && (
+            <div className="mb-3 flex items-center gap-2">
+              {/* STARS */}
+              <div
+                className="text-primary flex items-center gap-0.5"
+                aria-label={`${product.rating.toFixed(1)} out of 5 stars`}
+              >
+                {Array.from({ length: 5 }, (_, index) => (
+                  <Star
+                    key={index}
+                    size={14}
+                    strokeWidth={1.5}
+                    fill={
+                      index < Math.round(product.rating)
+                        ? "currentColor"
+                        : "none"
+                    }
+                  />
+                ))}
+              </div>
+
+              {/* RATING */}
+              <span className="text-primary font-sans text-[13px] font-semibold">
+                {product.rating.toFixed(1)}
+              </span>
+
+              {/* REVIEW COUNT */}
+              <span className="text-primary/50 font-sans text-[12px]">
+                ({product.reviewCount} reviews)
+              </span>
+            </div>
+          )}
 
         {/* PRICE AND SIZE */}
 

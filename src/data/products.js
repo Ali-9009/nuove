@@ -8,6 +8,9 @@ export const products = [
     price: 48,
     compareAtPrice: 60,
 
+    rating: 4.8,
+    reviewCount: 124,
+
     image: "/assets/barrier-peptide-serum.jpg",
     gallery: [
       "/assets/barrier-peptide-serum-2.jpg",
@@ -99,8 +102,7 @@ export const products = [
     faqs: [
       {
         question: "When should I apply this serum?",
-        answer:
-          "Apply after cleansing and before your moisturizer.",
+        answer: "Apply after cleansing and before your moisturizer.",
       },
       {
         question: "Can I use it in the morning?",
@@ -109,8 +111,7 @@ export const products = [
       },
       {
         question: "Can I combine it with a moisturizer?",
-        answer:
-          "Yes. The sample routine places this serum before moisturizer.",
+        answer: "Yes. The sample routine places this serum before moisturizer.",
       },
     ],
 
@@ -119,9 +120,7 @@ export const products = [
       "soothing-peptide-cleanser",
     ],
 
-    frequentlyPaired: [
-      "multi-peptide-firming-cream",
-    ],
+    frequentlyPaired: ["multi-peptide-firming-cream"],
 
     bundleSlugs: [
       "barrier-repair-system",
@@ -143,6 +142,9 @@ export const products = [
     category: "Moisturizers",
 
     price: 65,
+
+    rating: 4,
+    reviewCount: 120,
 
     image: "/assets/multi-peptide-firming-cream.jpg",
     gallery: [
@@ -231,13 +233,11 @@ export const products = [
     faqs: [
       {
         question: "When should I use this cream?",
-        answer:
-          "Use after cleansing and applying any water-based serums.",
+        answer: "Use after cleansing and applying any water-based serums.",
       },
       {
         question: "Can I pair it with Barrier Peptide Serum?",
-        answer:
-          "The suggested routine pairs the serum with this moisturizer.",
+        answer: "The suggested routine pairs the serum with this moisturizer.",
       },
       {
         question: "Can I apply sunscreen afterward?",
@@ -246,19 +246,11 @@ export const products = [
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "soothing-peptide-cleanser",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "soothing-peptide-cleanser"],
 
-    frequentlyPaired: [
-      "360-peptide-eye-complex",
-    ],
+    frequentlyPaired: ["360-peptide-eye-complex"],
 
-    bundleSlugs: [
-      "anti-aging-peptide-duo",
-      "complete-anti-aging-routine",
-    ],
+    bundleSlugs: ["anti-aging-peptide-duo", "complete-anti-aging-routine"],
 
     available: true,
     concerns: ["firm-smooth"],
@@ -274,6 +266,9 @@ export const products = [
     category: "Serums",
 
     price: 58,
+
+    rating: 5,
+    reviewCount: 24,
 
     image: "/assets/vitamin-c-peptide-brightening-serum.jpg",
     gallery: [
@@ -363,8 +358,7 @@ export const products = [
     faqs: [
       {
         question: "When should I apply this serum?",
-        answer:
-          "Apply after cleansing and before moisturizer.",
+        answer: "Apply after cleansing and before moisturizer.",
       },
       {
         question: "Can I use it during the day?",
@@ -383,9 +377,7 @@ export const products = [
       "pure-ceramide-barrier-cream",
     ],
 
-    frequentlyPaired: [
-      "360-peptide-eye-complex",
-    ],
+    frequentlyPaired: ["360-peptide-eye-complex"],
 
     bundleSlugs: [],
 
@@ -406,6 +398,9 @@ export const products = [
     category: "Cleansers",
 
     price: 32,
+
+    rating: 4.8,
+    reviewCount: 124,
 
     image: "/assets/soothing-peptide-cleanser.jpg",
     gallery: [
@@ -506,19 +501,13 @@ export const products = [
       },
       {
         question: "What should I use afterward?",
-        answer:
-          "Follow cleansing with your chosen serum and moisturizer.",
+        answer: "Follow cleansing with your chosen serum and moisturizer.",
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "pure-ceramide-barrier-cream",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "pure-ceramide-barrier-cream"],
 
-    frequentlyPaired: [
-      "vitamin-c-peptide-brightening-serum",
-    ],
+    frequentlyPaired: ["vitamin-c-peptide-brightening-serum"],
 
     bundleSlugs: [],
 
@@ -539,6 +528,9 @@ export const products = [
     category: "Moisturizers",
 
     price: 54,
+
+    rating: 3,
+    reviewCount: 64,
 
     image: "/assets/pure-ceramide-barrier-cream.jpg",
     gallery: [
@@ -627,8 +619,7 @@ export const products = [
     faqs: [
       {
         question: "Can I use this after a serum?",
-        answer:
-          "Yes. The suggested routine uses moisturizer after serum.",
+        answer: "Yes. The suggested routine uses moisturizer after serum.",
       },
       {
         question: "Can it be part of an evening routine?",
@@ -637,23 +628,15 @@ export const products = [
       },
       {
         question: "Can I use it every day?",
-        answer:
-          "The sample routine includes daily use.",
+        answer: "The sample routine includes daily use.",
       },
     ],
 
-    completeRoutine: [
-      "soothing-peptide-cleanser",
-      "barrier-peptide-serum",
-    ],
+    completeRoutine: ["soothing-peptide-cleanser", "barrier-peptide-serum"],
 
-    frequentlyPaired: [
-      "overnight-peptide-mask",
-    ],
+    frequentlyPaired: ["overnight-peptide-mask"],
 
-    bundleSlugs: [
-      "barrier-repair-system",
-    ],
+    bundleSlugs: ["barrier-repair-system"],
 
     available: true,
     concerns: ["hydrate-restore", "calm-balance"],
@@ -666,6 +649,9 @@ export const products = [
     category: "Masks",
 
     price: 52,
+
+    rating: 4.8,
+    reviewCount: 124,
 
     image: "/assets/overnight-peptide-mask.jpg",
     gallery: [
@@ -743,8 +729,7 @@ export const products = [
 
     frequency: "Evening use; frequency to be confirmed.",
 
-    whoItsFor:
-      "For skincare routines focused on overnight moisturizing care.",
+    whoItsFor: "For skincare routines focused on overnight moisturizing care.",
 
     texture: "Rich, comforting mask.",
 
@@ -758,24 +743,17 @@ export const products = [
       },
       {
         question: "Should I use it before serum?",
-        answer:
-          "The suggested routine places serum before the mask.",
+        answer: "The suggested routine places serum before the mask.",
       },
       {
         question: "How often should I apply it?",
-        answer:
-          "Use the frequency provided on the approved product packaging.",
+        answer: "Use the frequency provided on the approved product packaging.",
       },
     ],
 
-    completeRoutine: [
-      "soothing-peptide-cleanser",
-      "barrier-peptide-serum",
-    ],
+    completeRoutine: ["soothing-peptide-cleanser", "barrier-peptide-serum"],
 
-    frequentlyPaired: [
-      "pure-ceramide-barrier-cream",
-    ],
+    frequentlyPaired: ["pure-ceramide-barrier-cream"],
 
     bundleSlugs: [],
 
@@ -793,6 +771,9 @@ export const products = [
     category: "Eye Care",
 
     price: 46,
+
+    rating: 5,
+    reviewCount: 194,
 
     image: "/assets/360-peptide-eye-complex.jpg",
     gallery: [
@@ -896,14 +877,9 @@ export const products = [
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "multi-peptide-firming-cream",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "multi-peptide-firming-cream"],
 
-    frequentlyPaired: [
-      "vitamin-c-peptide-brightening-serum",
-    ],
+    frequentlyPaired: ["vitamin-c-peptide-brightening-serum"],
 
     bundleSlugs: [],
 
@@ -921,6 +897,9 @@ export const products = [
     category: "Moisturizers",
 
     price: 62,
+
+    rating: 4.8,
+    reviewCount: 124,
 
     image: "/assets/retinol-barrier-cream.jpg",
     gallery: [
@@ -1034,13 +1013,9 @@ export const products = [
       "pure-ceramide-barrier-cream",
     ],
 
-    frequentlyPaired: [
-      "barrier-peptide-serum",
-    ],
+    frequentlyPaired: ["barrier-peptide-serum"],
 
-    bundleSlugs: [
-      "complete-anti-aging-routine",
-    ],
+    bundleSlugs: ["complete-anti-aging-routine"],
 
     available: true,
     concerns: ["firm-smooth"],
@@ -1059,9 +1034,7 @@ export function getProductByHandle(handle) {
 }
 
 export function getProductsByConcern(slug) {
-  return products.filter((product) =>
-    product.concerns.includes(slug)
-  );
+  return products.filter((product) => product.concerns.includes(slug));
 }
 
 export function formatPrice(price) {
@@ -1074,11 +1047,7 @@ export function formatPrice(price) {
 export function getBestsellers(limit = 4) {
   return products
     .filter((product) => product.bestseller === true)
-    .sort(
-      (a, b) =>
-        (a.bestsellerOrder ?? 999) -
-        (b.bestsellerOrder ?? 999)
-    )
+    .sort((a, b) => (a.bestsellerOrder ?? 999) - (b.bestsellerOrder ?? 999))
     .slice(0, limit);
 }
 
