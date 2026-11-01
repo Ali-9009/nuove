@@ -60,7 +60,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="text-primary relative overflow-hidden bg-[#F8F7F4]">
+    <footer className="text-primary relative overflow-hidden">
       {" "}
       <div className="mx-auto max-w-360 px-4 pt-16 sm:px-8 sm:pt-20 md:px-6 lg:pt-24">
         {/* MAIN FOOTER */}

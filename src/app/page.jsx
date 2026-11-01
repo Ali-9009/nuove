@@ -19,9 +19,9 @@ export default function HomePage() {
 
       <BrandIntroduction />
 
-      <ScienceBehindRitual />
-
       <Bestsellers />
+
+      <ScienceBehindRitual />
 
       <BuildYourRoutine />
 

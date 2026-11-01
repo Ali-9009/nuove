@@ -165,9 +165,9 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="skincare-editorial-heading"
-      className="px-4 py-6 md:px-6 lg:py-10 mt-12"
+      className="mt-12 px-4 py-6 md:px-6 lg:py-10"
     >
-      <div className="relative mx-auto max-w-360 min-h-[70svh] lg:min-h-[90svh] overflow-hidden rounded-3xl bg-[#E7EBE8] shadow-[0_15px_45px_rgba(0,0,0,0.12)]">
+      <div className="relative mx-auto min-h-[80svh] max-w-360 overflow-hidden rounded-3xl bg-[#E7EBE8] shadow-[0_15px_45px_rgba(0,0,0,0.12)] lg:min-h-[90svh]">
         {" "}
         {/* BACKGROUND IMAGE */}
         <div className="absolute inset-0">
@@ -183,7 +183,7 @@ export default function Hero() {
         {/* SOFT OVERLAY */}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(9,27,32,0.35)_0%,transparent_48%)]" />
         {/* HERO CONTENT */}
-        <div className="relative z-10 flex min-h-[70svh] lg:min-h-[90svh] flex-col justify-between gap-8 px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-12">
+        <div className="relative z-10 flex min-h-[80svh] flex-col justify-between gap-8 px-5 py-6 sm:px-8 sm:py-8 lg:min-h-[90svh] lg:px-12 lg:py-12">
           {/* BOTTOM CONTENT */}
           <div className="mt-auto flex flex-col items-start gap-5 sm:flex-row sm:items-end sm:justify-between">
             {/* LEFT HEADING */}
@@ -192,7 +192,7 @@ export default function Hero() {
                 id="skincare-editorial-heading"
                 className="font-heading text-[clamp(2.5rem,4vw,5rem)] leading-[0.9] tracking-[-0.035em] text-white"
               >
-                Take Care of Your Skin.
+                Elevated Skincare. <br /> Powered by Peptides.
               </h2>
             </div>
 
@@ -218,7 +218,7 @@ export default function Hero() {
                   {/* PRODUCT DETAILS */}
                   <div className="flex items-start justify-between gap-3 px-2 py-2 font-sans">
                     <div className="min-w-0">
-                      <p className="text-primary/60 text-[13px]">
+                      <p className="text-sm text-white">
                         Featured Skincare
                       </p>
 
@@ -226,7 +226,7 @@ export default function Hero() {
                         {product.name}
                       </h3>
 
-                      <p className="text-primary/70 mt-1 text-[14px] font-medium">
+                      <p className="mt-1 text-sm font-medium text-white/80">
                         {formatPrice(product.price)}
                       </p>
                     </div>
@@ -237,7 +237,7 @@ export default function Hero() {
                   </div>
 
                   {/* PRODUCT IMAGE */}
-                  <div className="relative mt-2 h-36 w-full overflow-hidden rounded-2xl bg-white/90">
+                  <div className="relative mt-2 h-36 w-full overflow-hidden rounded-2xl bg-white">
                     <Image
                       src="/assets/barrier-peptide-serum.jpg"
                       alt={product.name}
