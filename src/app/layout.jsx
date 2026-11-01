@@ -4,6 +4,7 @@ import "remixicon/fonts/remixicon.css";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/V3Footer";
+import AnnouncementPill from "@/components/AnnouncementPill";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cormorant.variable} ${manrope.variable}`}>
       <body className="text-text bg-white font-sans antialiased">
         <Header />
-        
+          <AnnouncementPill />
         {/* <div className="h-[108px] lg:h-20" aria-hidden="true" /> */}
 
         {children}

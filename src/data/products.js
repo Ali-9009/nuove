@@ -8,12 +8,16 @@ export const products = [
     price: 48,
     compareAtPrice: 60,
 
+    rating: 4.8,
+    reviewCount: 124,
+
     image: "/assets/barrier-peptide-serum.jpg",
     gallery: [
       "/assets/barrier-peptide-serum-2.jpg",
       "/assets/barrier-peptide-serum-3.jpg",
       "/assets/barrier-peptide-serum-4.jpg",
       "/assets/barrier-peptide-serum-5.jpg",
+      "/assets/barrier-peptide-serum-6.jpg",
     ],
 
     description:
@@ -99,8 +103,7 @@ export const products = [
     faqs: [
       {
         question: "When should I apply this serum?",
-        answer:
-          "Apply after cleansing and before your moisturizer.",
+        answer: "Apply after cleansing and before your moisturizer.",
       },
       {
         question: "Can I use it in the morning?",
@@ -109,8 +112,7 @@ export const products = [
       },
       {
         question: "Can I combine it with a moisturizer?",
-        answer:
-          "Yes. The sample routine places this serum before moisturizer.",
+        answer: "Yes. The sample routine places this serum before moisturizer.",
       },
     ],
 
@@ -119,9 +121,7 @@ export const products = [
       "soothing-peptide-cleanser",
     ],
 
-    frequentlyPaired: [
-      "multi-peptide-firming-cream",
-    ],
+    frequentlyPaired: ["multi-peptide-firming-cream"],
 
     bundleSlugs: [
       "barrier-repair-system",
@@ -144,11 +144,15 @@ export const products = [
 
     price: 65,
 
+    rating: 4,
+    reviewCount: 120,
+
     image: "/assets/multi-peptide-firming-cream.jpg",
     gallery: [
       "/assets/multi-peptide-firming-cream-2.jpg",
       "/assets/multi-peptide-firming-cream-3.jpg",
       "/assets/multi-peptide-firming-cream-4.jpg",
+      "/assets/multi-peptide-firming-cream-5.jpg",
     ],
 
     description:
@@ -231,13 +235,11 @@ export const products = [
     faqs: [
       {
         question: "When should I use this cream?",
-        answer:
-          "Use after cleansing and applying any water-based serums.",
+        answer: "Use after cleansing and applying any water-based serums.",
       },
       {
         question: "Can I pair it with Barrier Peptide Serum?",
-        answer:
-          "The suggested routine pairs the serum with this moisturizer.",
+        answer: "The suggested routine pairs the serum with this moisturizer.",
       },
       {
         question: "Can I apply sunscreen afterward?",
@@ -246,19 +248,11 @@ export const products = [
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "soothing-peptide-cleanser",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "soothing-peptide-cleanser"],
 
-    frequentlyPaired: [
-      "360-peptide-eye-complex",
-    ],
+    frequentlyPaired: ["360-peptide-eye-complex"],
 
-    bundleSlugs: [
-      "anti-aging-peptide-duo",
-      "complete-anti-aging-routine",
-    ],
+    bundleSlugs: ["anti-aging-peptide-duo", "complete-anti-aging-routine"],
 
     available: true,
     concerns: ["firm-smooth"],
@@ -275,12 +269,16 @@ export const products = [
 
     price: 58,
 
+    rating: 5,
+    reviewCount: 24,
+
     image: "/assets/vitamin-c-peptide-brightening-serum.jpg",
     gallery: [
       "/assets/vitamin-c-peptide-brightening-serum-2.jpg",
       "/assets/vitamin-c-peptide-brightening-serum-3.jpg",
       "/assets/vitamin-c-peptide-brightening-serum-4.jpg",
       "/assets/vitamin-c-peptide-brightening-serum-5.jpg",
+      "/assets/vitamin-c-peptide-brightening-serum-6.jpg",
     ],
 
     description:
@@ -363,8 +361,7 @@ export const products = [
     faqs: [
       {
         question: "When should I apply this serum?",
-        answer:
-          "Apply after cleansing and before moisturizer.",
+        answer: "Apply after cleansing and before moisturizer.",
       },
       {
         question: "Can I use it during the day?",
@@ -383,9 +380,7 @@ export const products = [
       "pure-ceramide-barrier-cream",
     ],
 
-    frequentlyPaired: [
-      "360-peptide-eye-complex",
-    ],
+    frequentlyPaired: ["360-peptide-eye-complex"],
 
     bundleSlugs: [],
 
@@ -407,6 +402,9 @@ export const products = [
 
     price: 32,
 
+    rating: 4.8,
+    reviewCount: 124,
+
     image: "/assets/soothing-peptide-cleanser.jpg",
     gallery: [
       "/assets/soothing-peptide-cleanser-2.jpg",
@@ -414,6 +412,7 @@ export const products = [
       "/assets/soothing-peptide-cleanser-4.jpg",
       "/assets/soothing-peptide-cleanser-5.jpg",
       "/assets/soothing-peptide-cleanser-6.jpg",
+      "/assets/soothing-peptide-cleanser-7.jpg",
     ],
 
     description:
@@ -506,19 +505,13 @@ export const products = [
       },
       {
         question: "What should I use afterward?",
-        answer:
-          "Follow cleansing with your chosen serum and moisturizer.",
+        answer: "Follow cleansing with your chosen serum and moisturizer.",
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "pure-ceramide-barrier-cream",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "pure-ceramide-barrier-cream"],
 
-    frequentlyPaired: [
-      "vitamin-c-peptide-brightening-serum",
-    ],
+    frequentlyPaired: ["vitamin-c-peptide-brightening-serum"],
 
     bundleSlugs: [],
 
@@ -540,11 +533,15 @@ export const products = [
 
     price: 54,
 
+    rating: 3,
+    reviewCount: 64,
+
     image: "/assets/pure-ceramide-barrier-cream.jpg",
     gallery: [
       "/assets/pure-ceramide-barrier-cream-2.jpg",
       "/assets/pure-ceramide-barrier-cream-3.jpg",
       "/assets/pure-ceramide-barrier-cream-4.jpg",
+      "/assets/pure-ceramide-barrier-cream-5.jpg",
     ],
 
     description:
@@ -627,8 +624,7 @@ export const products = [
     faqs: [
       {
         question: "Can I use this after a serum?",
-        answer:
-          "Yes. The suggested routine uses moisturizer after serum.",
+        answer: "Yes. The suggested routine uses moisturizer after serum.",
       },
       {
         question: "Can it be part of an evening routine?",
@@ -637,23 +633,15 @@ export const products = [
       },
       {
         question: "Can I use it every day?",
-        answer:
-          "The sample routine includes daily use.",
+        answer: "The sample routine includes daily use.",
       },
     ],
 
-    completeRoutine: [
-      "soothing-peptide-cleanser",
-      "barrier-peptide-serum",
-    ],
+    completeRoutine: ["soothing-peptide-cleanser", "barrier-peptide-serum"],
 
-    frequentlyPaired: [
-      "overnight-peptide-mask",
-    ],
+    frequentlyPaired: ["overnight-peptide-mask"],
 
-    bundleSlugs: [
-      "barrier-repair-system",
-    ],
+    bundleSlugs: ["barrier-repair-system"],
 
     available: true,
     concerns: ["hydrate-restore", "calm-balance"],
@@ -663,14 +651,18 @@ export const products = [
     id: 6,
     handle: "overnight-peptide-mask",
     name: "Overnight Peptide Mask",
-    category: "Masks",
+    category: "Treatments & Masks",
 
     price: 52,
+
+    rating: 4.8,
+    reviewCount: 124,
 
     image: "/assets/overnight-peptide-mask.jpg",
     gallery: [
       "/assets/overnight-peptide-mask-2.jpg",
       "/assets/overnight-peptide-mask-3.jpg",
+      "/assets/overnight-peptide-mask-4.jpg",
     ],
 
     description:
@@ -743,8 +735,7 @@ export const products = [
 
     frequency: "Evening use; frequency to be confirmed.",
 
-    whoItsFor:
-      "For skincare routines focused on overnight moisturizing care.",
+    whoItsFor: "For skincare routines focused on overnight moisturizing care.",
 
     texture: "Rich, comforting mask.",
 
@@ -758,24 +749,17 @@ export const products = [
       },
       {
         question: "Should I use it before serum?",
-        answer:
-          "The suggested routine places serum before the mask.",
+        answer: "The suggested routine places serum before the mask.",
       },
       {
         question: "How often should I apply it?",
-        answer:
-          "Use the frequency provided on the approved product packaging.",
+        answer: "Use the frequency provided on the approved product packaging.",
       },
     ],
 
-    completeRoutine: [
-      "soothing-peptide-cleanser",
-      "barrier-peptide-serum",
-    ],
+    completeRoutine: ["soothing-peptide-cleanser", "barrier-peptide-serum"],
 
-    frequentlyPaired: [
-      "pure-ceramide-barrier-cream",
-    ],
+    frequentlyPaired: ["pure-ceramide-barrier-cream"],
 
     bundleSlugs: [],
 
@@ -794,11 +778,15 @@ export const products = [
 
     price: 46,
 
+    rating: 5,
+    reviewCount: 194,
+
     image: "/assets/360-peptide-eye-complex.jpg",
     gallery: [
       "/assets/360-peptide-eye-complex-2.jpg",
       "/assets/360-peptide-eye-complex-3.jpg",
       "/assets/360-peptide-eye-complex-4.jpg",
+      "/assets/360-peptide-eye-complex-5.jpg",
     ],
 
     description:
@@ -896,14 +884,9 @@ export const products = [
       },
     ],
 
-    completeRoutine: [
-      "barrier-peptide-serum",
-      "multi-peptide-firming-cream",
-    ],
+    completeRoutine: ["barrier-peptide-serum", "multi-peptide-firming-cream"],
 
-    frequentlyPaired: [
-      "vitamin-c-peptide-brightening-serum",
-    ],
+    frequentlyPaired: ["vitamin-c-peptide-brightening-serum"],
 
     bundleSlugs: [],
 
@@ -922,10 +905,14 @@ export const products = [
 
     price: 62,
 
+    rating: 4.8,
+    reviewCount: 124,
+
     image: "/assets/retinol-barrier-cream.jpg",
     gallery: [
       "/assets/retinol-barrier-cream-2.jpg",
       "/assets/retinol-barrier-cream-3.jpg",
+      "/assets/retinol-barrier-cream-4.jpg",
     ],
 
     description:
@@ -1034,19 +1021,157 @@ export const products = [
       "pure-ceramide-barrier-cream",
     ],
 
-    frequentlyPaired: [
-      "barrier-peptide-serum",
-    ],
+    frequentlyPaired: ["barrier-peptide-serum"],
 
-    bundleSlugs: [
-      "complete-anti-aging-routine",
-    ],
+    bundleSlugs: ["complete-anti-aging-routine"],
 
     available: true,
     concerns: ["firm-smooth"],
 
     bestseller: true,
     bestsellerOrder: 1,
+  },
+
+  {
+    id: 9,
+    handle: "purifying-peptide-cleanser",
+    name: "Purifying Peptide Cleanser",
+    category: "Cleansers",
+
+    price: 32,
+
+    rating: 4.8,
+    reviewCount: 124,
+
+    image: "/assets/purifying-peptide-cleanser.jpg",
+    gallery: [
+      "/assets/purifying-peptide-cleanser-2.jpg",
+      "/assets/purifying-peptide-cleanser-3.jpg",
+      "/assets/purifying-peptide-cleanser-4.jpg",
+      "/assets/purifying-peptide-cleanser-5.jpg",
+    ],
+
+    description:
+      "A refreshing peptide-focused facial cleanser concept designed to remove everyday impurities while complementing a balanced skincare routine.",
+
+    positioning:
+      "A refreshing daily cleanser designed for a clean, comfortable-feeling complexion.",
+
+    // Placeholder sizes
+    size: "150 ml",
+
+    variants: [
+      {
+        id: "purifying-cleanser-150ml",
+        name: "150 ml",
+        label: "150 ml",
+        size: "150 ml",
+        amount: 150,
+        unit: "ml",
+        price: 32,
+        available: true,
+      },
+      {
+        id: "purifying-cleanser-200ml",
+        name: "200 ml",
+        label: "200 ml",
+        size: "200 ml",
+        amount: 200,
+        unit: "ml",
+        price: 42,
+        available: true,
+      },
+    ],
+
+    benefits: [
+      "Designed to cleanse away everyday impurities.",
+      "Complements a daily skincare routine.",
+      "Leaves skin feeling fresh and comfortable.",
+    ],
+
+    overview:
+      "The Purifying Peptide Cleanser is a concept for an everyday facial cleansing ritual. Designed to help wash away surface impurities, excess oil, and daily buildup, it offers a refreshing first step before serums and moisturizers. Its peptide-focused positioning complements the NUOVÉ approach to considered skincare.",
+
+    // Illustrative ingredients only — not a verified formula
+    keyIngredients: [
+      {
+        name: "Peptides",
+        role: "Cosmetic ingredients used in a variety of skincare formulations.",
+      },
+      {
+        name: "Glycerin",
+        role: "A humectant commonly used to help retain moisture.",
+      },
+      {
+        name: "Panthenol",
+        role: "A skin-conditioning ingredient commonly used in skincare.",
+      },
+    ],
+
+    // Illustrative INCI — replace with approved formulation
+    inci: [
+      "Aqua",
+      "Glycerin",
+      "Cocamidopropyl Betaine",
+      "Decyl Glucoside",
+      "Panthenol",
+      "Sodium Chloride",
+      "Phenoxyethanol",
+      "Ethylhexylglycerin",
+    ],
+
+    howToUse:
+      "Apply a small amount to damp skin and gently massage across the face. Rinse thoroughly with lukewarm water. Follow with your preferred serum and moisturizer. Avoid direct contact with the eyes.",
+
+    frequency:
+      "Morning and evening, according to skin needs and the approved product directions.",
+
+    whoItsFor:
+      "Designed as a daily cleansing option for routines focused on freshness, gentle cleansing, and comfortable-feeling skin.",
+
+    texture: "Refreshing gel cleanser.",
+
+    routineStep: "Step 1 — Cleanse.",
+
+    faqs: [
+      {
+        question: "When should I use the Purifying Peptide Cleanser?",
+        answer:
+          "Use as the first step of your skincare routine, before applying serums and moisturizers.",
+      },
+      {
+        question: "Can I use this cleanser every day?",
+        answer:
+          "The proposed routine allows for daily cleansing. Follow the final product label and adjust usage according to your skin's needs.",
+      },
+      {
+        question: "Should I apply serum after cleansing?",
+        answer:
+          "Yes. After rinsing and gently drying your skin, you can follow with your preferred serum and moisturizer.",
+      },
+      {
+        question:
+          "What is the difference between this and the Soothing Peptide Cleanser?",
+        answer:
+          "The Purifying Peptide Cleanser is positioned around refreshing cleansing, while the Soothing Peptide Cleanser is positioned around a more comforting cleansing experience. Actual differences depend on the approved formulations.",
+      },
+    ],
+
+    completeRoutine: ["barrier-peptide-serum", "pure-ceramide-barrier-cream"],
+
+    frequentlyPaired: [
+      "vitamin-c-peptide-brightening-serum",
+      "multi-peptide-firming-cream",
+    ],
+
+    bundleSlugs: [],
+
+    available: true,
+
+    concerns: ["hydrate-restore", "calm-balance"],
+
+    featured: false,
+    bestseller: false,
   },
 ];
 
@@ -1059,9 +1184,7 @@ export function getProductByHandle(handle) {
 }
 
 export function getProductsByConcern(slug) {
-  return products.filter((product) =>
-    product.concerns.includes(slug)
-  );
+  return products.filter((product) => product.concerns.includes(slug));
 }
 
 export function formatPrice(price) {
@@ -1074,11 +1197,7 @@ export function formatPrice(price) {
 export function getBestsellers(limit = 4) {
   return products
     .filter((product) => product.bestseller === true)
-    .sort(
-      (a, b) =>
-        (a.bestsellerOrder ?? 999) -
-        (b.bestsellerOrder ?? 999)
-    )
+    .sort((a, b) => (a.bestsellerOrder ?? 999) - (b.bestsellerOrder ?? 999))
     .slice(0, limit);
 }
 

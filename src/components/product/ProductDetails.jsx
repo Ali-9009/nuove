@@ -24,128 +24,105 @@ import { addToCart } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
 
 function ProductGallery({ product }) {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({
+    x: 50,
+    y: 50,
+  });
 
   const images = [product.image, ...(product.gallery || [])].filter(
     (src, index, array) => src && array.indexOf(src) === index,
   );
 
-  useEffect(() => {
-    if (selectedImage === null) return;
+  if (!images.length) return null;
 
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") setSelectedImage(null);
+  function handleImageChange(index) {
+    setSelectedImage(index);
+    setIsZoomed(false);
+    setZoomPosition({ x: 50, y: 50 });
+  }
 
-      if (event.key === "ArrowRight") {
-        setSelectedImage((current) => (current + 1) % images.length);
-      }
+  function handleMouseMove(event) {
+    if (!isZoomed) return;
 
-      if (event.key === "ArrowLeft") {
-        setSelectedImage(
-          (current) => (current - 1 + images.length) % images.length,
-        );
-      }
-    };
+    const rect = event.currentTarget.getBoundingClientRect();
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
 
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [selectedImage, images.length]);
+    setZoomPosition({
+      x: Math.max(0, Math.min(100, x)),
+      y: Math.max(0, Math.min(100, y)),
+    });
+  }
 
   return (
-    <>
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+    <div className="flex min-w-0 flex-col gap-3 sm:grid sm:grid-cols-[85px_minmax(0,1fr)] sm:items-stretch sm:gap-4 lg:grid-cols-[95px_minmax(0,1fr)] lg:gap-5">
+      {/* THUMBNAILS */}
+      <div className="order-2 flex w-full min-w-0 [scrollbar-width:none] gap-2 overflow-x-auto overscroll-x-contain pb-2 sm:relative sm:order-1 sm:h-0 sm:min-h-full sm:w-auto sm:flex-col sm:overflow-x-hidden sm:overflow-y-auto sm:overscroll-y-contain sm:pr-1 sm:pb-0 [&::-webkit-scrollbar]:hidden">
         {images.map((src, index) => (
-          <figure
-            key={`${product.handle}-${src}`}
-            className="group relative aspect-3/4 overflow-hidden"
+          <button
+            key={`${product.handle}-${index}`}
+            type="button"
+            onClick={() => handleImageChange(index)}
+            aria-label={`View ${product.name} image ${index + 1}`}
+            aria-pressed={selectedImage === index}
+            className={`relative aspect-[3/4] w-[65px] shrink-0 overflow-hidden rounded-xl bg-[#F8F8F7] transition-opacity duration-200 sm:w-full ${
+              selectedImage === index
+                ? "ring-primary opacity-100 ring-2 ring-inset"
+                : "opacity-75 hover:opacity-100"
+            }`}
           >
-            <button
-              type="button"
-              onClick={() => setSelectedImage(index)}
-              aria-label={`Enlarge ${product.name} image ${index + 1}`}
-              className="absolute inset-0 block h-full w-full cursor-zoom-in"
-            >
-              <Image
-                src={src}
-                alt={`${product.name}, product view ${index + 1}`}
-                fill
-                priority={index === 0}
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 45vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.035] motion-reduce:transition-none"
-              />
-            </button>
-
-            <figcaption className="sr-only">
-              {product.name}, image {index + 1}
-            </figcaption>
-          </figure>
+            <Image
+              src={src}
+              alt={`${product.name}, thumbnail ${index + 1}`}
+              fill
+              sizes="(max-width: 640px) 65px, (max-width: 1024px) 85px, 95px"
+              className="object-cover"
+            />
+          </button>
         ))}
       </div>
 
-      {/* FULL-SCREEN IMAGE VIEWER */}
-      {selectedImage !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${product.name} image viewer`}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
+      {/* MAIN IMAGE */}
+      <div className="order-1 min-w-0 sm:order-2">
+        <button
+          type="button"
+          onClick={() => setIsZoomed((current) => !current)}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => setIsZoomed(false)}
+          aria-label={
+            isZoomed
+              ? `Zoom out of ${product.name} image`
+              : `Zoom into ${product.name} image`
+          }
+          aria-pressed={isZoomed}
+          className={`group relative block aspect-4/5 w-full overflow-hidden rounded-2xl bg-[#F8F8F7] text-left sm:aspect-5/6 lg:aspect-4/5 ${
+            isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
+          }`}
         >
-          <button
-            type="button"
-            onClick={() => setSelectedImage(null)}
-            aria-label="Close image viewer"
-            className="bg-primary absolute top-5 right-5 z-20 flex h-11 w-11 items-center justify-center rounded-full text-white"
-          >
-            <X size={20} />
-          </button>
-
-          <div className="relative h-[75dvh] w-full max-w-[1000px]">
-            <Image
-              src={images[selectedImage]}
-              alt={`${product.name}, enlarged view`}
-              fill
-              sizes="100vw"
-              className="object-contain p-6"
-            />
-          </div>
-
-          {images.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={() =>
-                  setSelectedImage(
-                    (current) => (current - 1 + images.length) % images.length,
-                  )
-                }
-                aria-label="Previous image"
-                className="border-primary/20 text-primary absolute bottom-8 left-6 z-20 flex h-11 w-11 items-center justify-center border bg-white md:top-1/2 md:bottom-auto"
-              >
-                <ChevronLeft size={22} />
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  setSelectedImage((current) => (current + 1) % images.length)
-                }
-                aria-label="Next image"
-                className="border-primary/20 text-primary absolute right-6 bottom-8 z-20 flex h-11 w-11 items-center justify-center border bg-white md:top-1/2 md:bottom-auto"
-              >
-                <ChevronRight size={22} />
-              </button>
-            </>
-          )}
-        </div>
-      )}
-    </>
+          {/* MAIN PRODUCT IMAGE */}
+          <Image
+            key={images[selectedImage]}
+            src={images[selectedImage]}
+            alt={`${product.name}, product view ${selectedImage + 1}`}
+            fill
+            priority={selectedImage === 0}
+            sizes="(max-width: 768px) 85vw, 55vw"
+            style={{
+              transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+              transform: isZoomed ? "scale(2)" : "scale(1)",
+            }}
+            className={`object-cover ${
+              isZoomed
+                ? "transition-transform duration-150"
+                : "transition-transform duration-500"
+            } motion-reduce:transition-none`}
+          />
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -191,31 +168,35 @@ function ProductAccordion({ title, children, defaultOpen = false }) {
 function QuantitySelector({ quantity, setQuantity }) {
   return (
     <div
-      className="border-primary/20 flex h-13.5 items-center border"
+      role="group"
       aria-label="Quantity"
+      className="border-primary/15 flex h-[54px] w-full items-center justify-between rounded-full border bg-[#F5F8F8] px-1.5"
     >
+      {/* MINUS */}
       <button
         type="button"
         aria-label="Decrease quantity"
         disabled={quantity <= 1}
         onClick={() => setQuantity((current) => Math.max(1, current - 1))}
-        className="text-primary flex h-full w-12 items-center justify-center disabled:opacity-30"
+        className="text-primary hover:bg-primary/5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-30"
       >
-        <Minus size={15} />
+        <Minus size={16} strokeWidth={1.7} />
       </button>
 
-      <output className="text-primary min-w-8 text-center text-sm font-semibold">
+      {/* QUANTITY */}
+      <output className="text-primary min-w-5 text-center font-sans text-[15px] font-semibold">
         {quantity}
       </output>
 
+      {/* PLUS */}
       <button
         type="button"
         aria-label="Increase quantity"
         disabled={quantity >= 10}
         onClick={() => setQuantity((current) => Math.min(10, current + 1))}
-        className="text-primary flex h-full w-12 items-center justify-center disabled:opacity-30"
+        className="text-primary hover:bg-primary/5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-30"
       >
-        <Plus size={15} />
+        <Plus size={16} strokeWidth={1.7} />
       </button>
     </div>
   );
@@ -300,18 +281,18 @@ export default function ProductDetails({
     <>
       {/* PRODUCT MAIN LAYOUT */}
       <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-        {/* LEFT GALLERY */}
-        <ProductGallery product={product} />
+        {/* LEFT GALLERY — STICKY */}
+        <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
+          <ProductGallery product={product} />
+        </div>
 
         {/* RIGHT PRODUCT INFORMATION */}
-        <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
+        <div className="min-w-0">
           {/* CATEGORY */}
           <div className="mb-5 flex items-center justify-between gap-4">
             <span className="text-primary/60 text-[10px] font-semibold tracking-[0.23em] uppercase">
               NUOVÉ / {product.category}
             </span>
-
-            {size && <span className="text-primary/60 text-xs">{size}</span>}
           </div>
 
           {/* TITLE */}
@@ -324,21 +305,23 @@ export default function ProductDetails({
             {details.positioning || product.description}
           </p>
 
-          {/* VERIFIED REVIEW RATING */}
-          {rating !== null && (
+          {typeof product.rating === "number" && product.reviewCount > 0 && (
             <div className="mt-5 flex items-center gap-3">
+              {/* STARS */}
               <span
-                aria-label={`${rating.toFixed(1)} out of 5 stars`}
-                className="text-primary text-sm tracking-[0.12em]"
+                aria-label={`${product.rating.toFixed(1)} out of 5 stars`}
+                className="text-primary text-[17px] tracking-[0.08em]"
               >
-                {"★".repeat(Math.round(rating))}
+                {"★".repeat(Math.round(product.rating))}
+
                 <span className="text-primary/20">
-                  {"☆".repeat(5 - Math.round(rating))}
+                  {"☆".repeat(5 - Math.round(product.rating))}
                 </span>
               </span>
 
-              <span className="text-text/60 text-xs">
-                {rating.toFixed(1)} ({verifiedReviews.length} reviews)
+              {/* RATING + REVIEW COUNT */}
+              <span className="text-primary/65 font-sans text-[14px]">
+                {product.rating.toFixed(1)} ({product.reviewCount} reviews)
               </span>
             </div>
           )}
@@ -403,7 +386,7 @@ export default function ProductDetails({
                         setSelectedVariant(index);
                         setQuantity(1);
                       }}
-                      className={`min-h-11 border px-5 py-3 text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-35 ${
+                      className={`min-h-8 rounded-full border px-5 py-2 text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-35 ${
                         active
                           ? "border-primary bg-primary text-white"
                           : "border-primary/20 text-primary hover:border-primary"
@@ -432,31 +415,42 @@ export default function ProductDetails({
 
           {/* PURCHASE CONTROLS */}
           <div ref={purchaseRef} className="mt-7 space-y-3">
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+            <div className="flex w-full items-stretch gap-2.5 sm:gap-3">
+              {/* QUANTITY */}
+              <div className="w-[105px] shrink-0 sm:w-[125px]">
+                <QuantitySelector
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
+              </div>
 
+              {/* ADD TO BAG */}
               <button
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!available}
-                className="group bg-primary flex min-h-[54px] flex-1 items-center justify-between gap-4 px-6 text-white transition-colors hover:bg-[#0A4263] disabled:cursor-not-allowed disabled:opacity-40"
+                className="group bg-primary flex min-h-[54px] min-w-0 flex-1 items-center justify-between gap-2 rounded-full py-1.5 pr-1.5 pl-5 font-sans text-white transition-colors duration-300 hover:bg-[#0A4263] disabled:cursor-not-allowed disabled:opacity-40 sm:pl-6"
               >
-                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase">
+                <span className="text-[12px] font-semibold sm:text-[14px]">
                   {available ? "Add to Bag" : "Sold Out"}
                 </span>
 
-                <ShoppingBag
-                  size={19}
-                  strokeWidth={1.4}
-                  className="transition-transform duration-300 group-hover:-translate-y-0.5"
-                />
+                <span className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8EDF3]">
+                  <ShoppingBag
+                    size={18}
+                    strokeWidth={1.5}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5"
+                  />
+                </span>
               </button>
             </div>
 
+            {/* FEEDBACK */}
             <div aria-live="polite" className="min-h-5">
               {message && (
-                <p className="text-primary text-xs">
+                <p className="text-primary font-sans text-[13px]">
                   {message}
+
                   {message.includes("added") && (
                     <>
                       {" "}
@@ -472,8 +466,8 @@ export default function ProductDetails({
               )}
             </div>
 
-            {/* SHOPIFY EXPRESS CHECKOUT PLACEHOLDER */}
-            <p className="text-text/50 text-[11px] leading-relaxed">
+            {/* CHECKOUT NOTE */}
+            <p className="text-primary/50 font-sans text-[12px] leading-[1.6]">
               Secure checkout options will be available when Shopify purchasing
               is connected.
             </p>
@@ -538,10 +532,6 @@ export default function ProductDetails({
 
           {/* PRODUCT INFORMATION ACCORDIONS */}
           <div className="border-primary/15 mt-8 border-t">
-            <ProductAccordion title="Overview" defaultOpen>
-              <p>{details.overview || product.description}</p>
-            </ProductAccordion>
-
             <ProductAccordion title="Benefits">
               {approvedBenefits.length ? (
                 <ul className="list-disc space-y-2 pl-5">
@@ -554,7 +544,7 @@ export default function ProductDetails({
               )}
             </ProductAccordion>
 
-            <ProductAccordion title="Key Ingredients">
+            {/* <ProductAccordion title="Key Ingredients">
               {details.keyIngredients?.length ? (
                 <ul className="space-y-4">
                   {details.keyIngredients.map((ingredient) => (
@@ -572,9 +562,9 @@ export default function ProductDetails({
               ) : (
                 <p>Verified ingredient details coming soon.</p>
               )}
-            </ProductAccordion>
+            </ProductAccordion> */}
 
-            <ProductAccordion title="Full Ingredient List">
+            {/* <ProductAccordion title="Full Ingredient List">
               {details.inci?.length ? (
                 <p>{details.inci.join(", ")}</p>
               ) : (
@@ -583,9 +573,9 @@ export default function ProductDetails({
                   against the approved formulation.
                 </p>
               )}
-            </ProductAccordion>
+            </ProductAccordion> */}
 
-            <ProductAccordion title="How to Use">
+            {/* <ProductAccordion title="How to Use">
               <p>
                 {details.howToUse ||
                   "Product-specific usage instructions will be added after approval."}
@@ -604,7 +594,7 @@ export default function ProductDetails({
                 {details.whoItsFor ||
                   "Suitable skin types and concerns will be added after product review."}
               </p>
-            </ProductAccordion>
+            </ProductAccordion> */}
 
             <ProductAccordion title="Routine Pairings">
               {pairings.length ? (
@@ -628,7 +618,7 @@ export default function ProductDetails({
               )}
             </ProductAccordion>
 
-            <ProductAccordion title="FAQs">
+            {/* <ProductAccordion title="FAQs">
               {details.faqs?.length ? (
                 <div className="space-y-5">
                   {details.faqs.map((faq) => (
@@ -644,7 +634,7 @@ export default function ProductDetails({
               ) : (
                 <p>Product-specific FAQs are being prepared.</p>
               )}
-            </ProductAccordion>
+            </ProductAccordion> */}
 
             <ProductAccordion title="Shipping & Returns">
               <div className="flex flex-wrap gap-5">
@@ -677,35 +667,250 @@ export default function ProductDetails({
         </div>
       </div>
 
+      {/* PRODUCT OVERVIEW */}
+      <section
+        aria-labelledby="product-overview-heading"
+        className="border-primary/10 mt-20 border-t pt-14 lg:mt-28 lg:pt-20"
+      >
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div>
+            <span className="font-sans text-[13px] font-medium text-[#6999AD]">
+              GET TO KNOW YOUR SKINCARE
+            </span>
+
+            <h2
+              id="product-overview-heading"
+              className="font-heading text-primary mt-4 text-[clamp(2.8rem,4vw,4.5rem)] leading-[1]"
+            >
+              The Product
+              <br />
+              <span className="text-[#6999AD] italic">Overview.</span>
+            </h2>
+          </div>
+
+          <div>
+            <p className="text-primary/75 font-sans text-[17px] leading-[1.9]">
+              {details.overview || product.description}
+            </p>
+
+            {approvedBenefits.length > 0 && (
+              <div className="mt-9">
+                <h3 className="text-primary font-sans text-[18px] font-semibold">
+                  Key Benefits
+                </h3>
+
+                <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {approvedBenefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="text-primary/70 flex items-start gap-3 font-sans text-[15px] leading-[1.7]"
+                    >
+                      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF5F7]">
+                        <Check
+                          size={16}
+                          strokeWidth={1.7}
+                          className="text-primary"
+                        />
+                      </span>
+
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCT DETAILS */}
+      <section
+        aria-labelledby="product-details-heading"
+        className="mt-20 lg:mt-28"
+      >
+        <div className="mb-9 text-center">
+          <span className="font-sans text-[13px] font-medium text-[#6999AD]">
+            THE DETAILS
+          </span>
+
+          <h2
+            id="product-details-heading"
+            className="font-heading text-primary mt-3 text-[clamp(2.8rem,4vw,4.5rem)] leading-[1]"
+          >
+            More About{" "}
+            <span className="text-[#6999AD] italic">Your Ritual.</span>
+          </h2>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {/* INGREDIENTS */}
+          <article className="rounded-2xl bg-[#F0F7F8] p-7 sm:p-9">
+            <h3 className="text-primary mt-5 font-sans text-[19px] font-semibold">
+              Key Ingredients
+            </h3>
+
+            {details.keyIngredients?.length ? (
+              <ul className="mt-5 space-y-4">
+                {details.keyIngredients.map((ingredient) => (
+                  <li key={ingredient.name}>
+                    <span className="text-primary font-sans text-[15px] font-semibold">
+                      {ingredient.name}
+                    </span>
+
+                    {ingredient.role && (
+                      <p className="text-primary/65 mt-1 font-sans text-[14px] leading-[1.7]">
+                        {ingredient.role}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-primary/65 mt-5 font-sans text-[15px] leading-[1.8]">
+                Verified ingredient details coming soon.
+              </p>
+            )}
+          </article>
+
+          {/* HOW TO USE */}
+          <article className="rounded-2xl bg-[#F6F4EF] p-7 sm:p-9">
+            <h3 className="text-primary mt-5 font-sans text-[19px] font-semibold">
+              How to Use
+            </h3>
+
+            <p className="text-primary/65 mt-5 font-sans text-[15px] leading-[1.8]">
+              {details.howToUse ||
+                "Product-specific usage instructions will be added after approval."}
+            </p>
+
+            {details.frequency && (
+              <p className="text-primary/65 mt-4 font-sans text-[15px]">
+                <strong className="text-primary">Frequency:</strong>{" "}
+                {details.frequency}
+              </p>
+            )}
+          </article>
+
+          {/* WHO IT'S FOR */}
+          <article className="rounded-2xl bg-[#EFF3F1] p-7 sm:p-9">
+            <h3 className="text-primary mt-5 font-sans text-[19px] font-semibold">
+              Who It's For
+            </h3>
+
+            <p className="text-primary/65 mt-5 font-sans text-[15px] leading-[1.8]">
+              {details.whoItsFor ||
+                "Suitable skin types and concerns will be added after product review."}
+            </p>
+          </article>
+        </div>
+
+        {/* FULL INGREDIENT LIST */}
+        {details.inci?.length > 0 && (
+          <details className="border-primary/10 mt-7 border-b py-5">
+            <summary className="text-primary cursor-pointer font-sans text-[16px] font-semibold">
+              View Full Ingredient List
+            </summary>
+
+            <p className="text-primary/65 mt-5 font-sans text-[15px] leading-[1.9]">
+              {details.inci.join(", ")}
+            </p>
+          </details>
+        )}
+      </section>
+
+      {/* FREQUENTLY ASKED QUESTIONS */}
+      <section aria-labelledby="product-faq-heading" className="pt-12 md:pt-18">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          {/* LEFT HEADING */}
+          <div>
+            <span className="font-sans text-[13px] font-medium text-[#6999AD]">
+              NEED MORE INFORMATION?
+            </span>
+
+            <h2
+              id="product-faq-heading"
+              className="font-heading text-primary mt-4 text-[clamp(2.8rem,4vw,4.5rem)] leading-[1]"
+            >
+              Frequently Asked
+              <br />
+              <span className="text-[#6999AD] italic">Questions.</span>
+            </h2>
+
+            <p className="text-primary/65 mt-5 max-w-[350px] font-sans text-[16px] leading-[1.8]">
+              Everything you need to know about this product.
+            </p>
+          </div>
+
+          {/* RIGHT FAQ ACCORDIONS */}
+          <div className="border-primary/15 border-t">
+            {details.faqs?.length ? (
+              details.faqs.map((faq, index) => (
+                <details
+                  key={faq.question}
+                  className="group border-primary/15 border-b"
+                >
+                  <summary className="text-primary flex cursor-pointer list-none items-center justify-between gap-5 py-6 font-sans text-[16px] font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
+                    <span>{faq.question}</span>
+
+                    <span className="bg-primary/5 text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[22px] font-light transition-transform duration-300 group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+
+                  <div className="pb-6">
+                    <p className="text-primary/65 max-w-[650px] font-sans text-[15px] leading-[1.85]">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </details>
+              ))
+            ) : (
+              <p className="text-primary/60 py-7 font-sans text-[15px]">
+                Product-specific FAQs are being prepared.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* MOBILE STICKY ADD TO BAG */}
       <div
         aria-hidden={!showStickyBar}
-        className={`border-primary/10 fixed right-0 bottom-0 left-0 z-40 border-t bg-white/95 px-4 py-3 shadow-[0_-5px_25px_rgba(0,0,0,0.05)] backdrop-blur-lg transition-transform duration-300 lg:hidden ${
+        className={`border-primary/10 fixed right-0 bottom-0 left-0 z-40 border-t bg-white/95 px-4 py-3 shadow-[0_-8px_35px_rgba(6,48,74,0.06)] backdrop-blur-xl transition-transform duration-300 lg:hidden ${
           showStickyBar
             ? "translate-y-0"
             : "pointer-events-none translate-y-full"
         }`}
       >
         <div className="mx-auto flex max-w-xl items-center gap-3">
+          {/* PRODUCT INFO */}
           <div className="min-w-0 flex-1">
-            <p className="text-primary truncate text-[11px] font-semibold">
+            <p className="text-primary truncate font-sans text-[13px] font-medium">
               {product.name}
             </p>
 
-            <p className="font-heading text-primary mt-1 text-xl">
+            <p className="text-primary mt-1 font-sans text-[18px] font-semibold">
               {formatPrice(price)}
             </p>
           </div>
 
+          {/* ADD TO BAG */}
           <button
             type="button"
             disabled={!available || !showStickyBar}
             onClick={handleAddToCart}
             tabIndex={showStickyBar ? 0 : -1}
-            className="bg-primary flex min-h-12 items-center gap-2 px-5 text-[11px] font-semibold tracking-wider text-white uppercase disabled:opacity-40"
+            className="group bg-primary flex min-h-[54px] shrink-0 items-center gap-4 rounded-full py-1.5 pr-1.5 pl-5 font-sans text-[13px] font-semibold text-white transition-colors duration-300 hover:bg-[#0A4263] disabled:cursor-not-allowed disabled:opacity-40 sm:pl-6"
           >
-            <ShoppingBag size={17} />
             {available ? "Add to Bag" : "Sold Out"}
+
+            <span className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D8EDF3]">
+              <ShoppingBag
+                size={18}
+                strokeWidth={1.5}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5"
+              />
+            </span>
           </button>
         </div>
       </div>

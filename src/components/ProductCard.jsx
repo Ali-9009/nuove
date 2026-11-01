@@ -93,9 +93,9 @@ export default function ProductCard({ product }) {
   // Preview-only counts. Approved product reviews take precedence automatically.
   const sampleCounts = { "vitamin-c-peptide-brightening-serum": 1248, "soothing-peptide-cleanser": 862, "overnight-peptide-mask": 976 };
   const sampleReviews = productReviews.length === 0;
-  const reviewCount = sampleReviews ? (sampleCounts[product.handle] ?? 384) : productReviews.length;
+  const reviewCount = sampleReviews ? (Number.isInteger(product.reviewCount) && product.reviewCount > 0 ? product.reviewCount : (sampleCounts[product.handle] ?? 384)) : productReviews.length;
   const reviewLabel = sampleReviews ? "sample reviews" : "verified reviews";
-  const displayRating = rating ?? 4.9;
+  const displayRating = rating ?? (typeof product.rating === "number" ? product.rating : 4.9);
 
   return (
     <article className={s.card}>

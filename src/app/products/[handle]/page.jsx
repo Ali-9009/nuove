@@ -76,11 +76,11 @@ export default async function ProductPage({ params }) {
 
   return (
     <main className="min-h-screen">
-      <div className="mx-auto max-w-360 px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+      <div className="mx-auto mt-12 max-w-360 px-4 py-8 md:mt-16 md:px-6 lg:py-12">
         {/* BREADCRUMB */}
         <nav
           aria-label="Breadcrumb"
-          className="text-text/50 mb-10 flex flex-wrap items-center gap-2 text-[11px]"
+          className="text-text/50 mb-10 flex flex-wrap items-center gap-2 text-xs"
         >
           <Link href="/" className="hover:text-primary">
             Home
