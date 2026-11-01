@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import ProductCard from "@/components/ProductCard";
+import s from "./Bestsellers.module.css";
 import { getBestsellers } from "@/data/products";
 
 export default function Bestsellers() {
@@ -70,7 +71,7 @@ export default function Bestsellers() {
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
+        <div className={s.grid}>
           {bestsellers.map((product) => (
             <div key={product.id} className="bestseller-reveal min-w-0">
               <ProductCard product={product} />

@@ -1,117 +1,62 @@
+import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Sparkles,
-  FlaskConical,
-  Layers3,
-  Gem,
-} from "lucide-react";
 
-const benefits = [
-  {
-    title: "Peptide-Focused",
-    description:
-      "Peptides are at the heart of our skincare collection, bringing ingredient-led thinking to everyday care.",
-    icon: FlaskConical,
-    background: "bg-[linear-gradient(145deg,#E9F6FA_0%,#D9EDF3_100%)]",
-    iconBackground: "bg-[#C7E4EE]",
-  },
-  {
-    title: "Considered Ingredients",
-    description:
-      "Peptides and complementary skincare ingredients, thoughtfully brought together in our collection.",
-    icon: Sparkles,
-    background: "bg-[linear-gradient(145deg,#FBF5EC_0%,#F0E2D1_100%)]",
-    iconBackground: "bg-[#F0DCC2]",
-  },
-  {
-    title: "Everyday Rituals",
-    description:
-      "Simple skincare steps designed to fit naturally into your morning and evening routines.",
-    icon: Layers3,
-    background: "bg-[linear-gradient(145deg,#EFF5F1_0%,#DCEAE1_100%)]",
-    iconBackground: "bg-[#D0E3D8]",
-  },
-  {
-    title: "Elevated Experience",
-    description:
-      "A considered approach to skincare presentation, discovery, and the details that make a routine feel special.",
-    icon: Gem,
-    background: "bg-[linear-gradient(145deg,#F2F2F8_0%,#E2E7F1_100%)]",
-    iconBackground: "bg-[#D9E0EF]",
-  },
+const pillars = [
+  { n: "01", t: "Peptide-Focused Formulations", d: "Peptides sit at the centre of every NUOVÉ formula." },
+  { n: "02", t: "Thoughtfully Selected Ingredients", d: "Every ingredient has a clear role." },
+  { n: "03", t: "Designed for Everyday Rituals", d: "Simple steps for morning and evening." },
+  { n: "04", t: "Elevated Quality & Presentation", d: "Every detail designed to feel considered." },
 ];
 
 export default function WhyNuove() {
   return (
-    <section
-      id="why-nuove"
-      aria-labelledby="why-nuove-heading"
-      className="px-4 py-12 md:px-6"
-    >
-      <div className="mx-auto max-w-360">
-        {/* SECTION HEADING */}
-        <header className="mx-auto mb-12 max-w-200 text-center sm:mb-16">
-          <h2
-            id="why-nuove-heading"
-            className="font-heading text-primary mt-6 text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
+    <section id="philosophy" aria-labelledby="philosophy-heading" className="pb-[clamp(80px,9vw,140px)] text-[#092D43]">
+      <div className="mx-auto max-w-[1560px] px-[clamp(20px,3vw,48px)] text-center">
+        <Image src="/assets/nuove-symbol.png" alt="" width={40} height={46} className="mx-auto block w-10" />
+        <h2
+          id="philosophy-heading"
+          className="mx-auto mt-5 max-w-[900px] !font-sans text-[clamp(32px,3.6vw,60px)] leading-[1.04] font-light tracking-[-0.045em] text-balance"
+        >
+          The NUOVÉ Philosophy. <span className="text-[#7FA3B5]">Skincare that deserves to feel considered.</span>
+        </h2>
+      </div>
+
+      <div className="mt-[clamp(28px,4vw,48px)] px-[clamp(12px,1.2vw,20px)]">
+        <div className="relative h-[clamp(360px,70vh,760px)] overflow-hidden rounded-[clamp(24px,2.4vw,40px)] bg-[#D7D0C6]">
+          <Image
+            src="/assets/philosophy-freckled-glow.png"
+            alt="Close-up of luminous, freckled skin"
+            fill
+            sizes="100vw"
+            className="object-cover object-[50%_40%]"
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-[linear-gradient(0deg,rgba(6,30,45,0.35)_0%,rgba(6,30,45,0)_100%)]" />
+        </div>
+      </div>
+
+      <div className="relative mx-auto -mt-[clamp(48px,6vw,96px)] max-w-[1400px] px-[clamp(20px,3vw,48px)]">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-3">
+          {pillars.map((p) => (
+            <div
+              key={p.n}
+              className="rounded-[28px] border border-white/90 bg-white/[0.88] p-[22px] shadow-[0_16px_40px_rgba(9,45,67,0.1)] backdrop-blur-[18px]"
+            >
+              <span className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#092D43] text-xs font-semibold text-[#F8F6F1]">
+                {p.n}
+              </span>
+              <div className="mt-3.5 text-[17px] leading-[1.25] font-medium">{p.t}</div>
+              <p className="mt-1.5 text-sm leading-[1.55] text-[#243039]">{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/pages/our-story"
+            className="flex h-[52px] items-center gap-3 rounded-full bg-[#092D43] pr-1.5 pl-[22px] text-sm font-medium text-[#F8F6F1] transition-colors hover:bg-[#061E2D]"
           >
-            Why <span className="text-[#6496AB] italic">NUOVÉ?</span>
-          </h2>
-
-          <p className="text-primary/65 mx-auto mt-7 max-w-142 font-sans text-[17px] leading-[1.75]">
-            Thoughtful skincare, considered ingredients, and everyday rituals
-            designed with intention.
-          </p>
-        </header>
-
-        {/* PREMIUM CARDS */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {benefits.map((benefit) => {
-            const Icon = benefit.icon;
-
-            return (
-              <article
-                key={benefit.title}
-                className={`group border-primary/5 relative flex min-h-[390px] flex-col overflow-hidden rounded-[28px] border p-7 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(6,48,74,0.12)] sm:min-h-[420px] ${benefit.background}`}
-              >
-                {/* BACKGROUND CIRCLES */}
-                <div className="pointer-events-none absolute -top-20 -right-20 h-[280px] w-[280px] rounded-full border border-white/60 transition-transform duration-700 group-hover:scale-110" />
-
-                <div className="pointer-events-none absolute -top-12 -right-12 h-[210px] w-[210px] rounded-full border border-white/70" />
-
-                {/* LARGE ICON AREA */}
-                <div className="relative flex flex-1 items-center justify-center">
-                  <div className="absolute h-[200px] w-[200px] rounded-full bg-white/25 blur-[35px]" />
-
-                  <div
-                    className={`relative flex h-[155px] w-[155px] items-center justify-center rounded-full border border-white/80 ${benefit.iconBackground} shadow-[0_20px_45px_rgba(6,48,74,0.08)] transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-[-8deg]`}
-                  >
-                    <div className="absolute inset-3 rounded-full border border-white/55" />
-
-                    <Icon
-                      size={64}
-                      strokeWidth={1.15}
-                      className="text-primary relative"
-                    />
-                  </div>
-                </div>
-
-                {/* CONTENT */}
-                <div className="relative z-10 mt-8">
-                  <div className="bg-primary/30 mb-5 h-px w-12 transition-all duration-500 group-hover:w-20" />
-
-                  <h3 className="font-heading text-primary text-[34px] leading-[1] sm:text-[37px]">
-                    {benefit.title}
-                  </h3>
-
-                  <p className="text-primary/70 mt-4 font-sans text-[16px] leading-[1.75]">
-                    {benefit.description}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+            Discover Our Philosophy
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EDF3] text-[#092D43]">↗</span>
+          </Link>
         </div>
       </div>
     </section>

@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { getProductByHandle, formatPrice } from "@/data/products";
+import h from "./Header.module.css";
 
 /* ==========================================
    NAVIGATION DATA
@@ -326,18 +327,19 @@ export default function Header() {
       {/* FIXED HEADER / FLOATING TUBE */}
       <header
         onMouseLeave={closeMega}
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 font-sans"
+        className={`${h.header} pointer-events-none fixed inset-x-0 top-0 z-50 font-sans`}
+        data-scrolled={scrolled}
       >
         {/* HEADER CONTAINER */}
         <div
-          className={`pointer-events-auto relative mx-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`${h.container} pointer-events-auto relative mx-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             scrolled
               ? "mt-3 w-[calc(100%-24px)] max-w-7xl rounded-full border border-white/70 bg-white/75 shadow-[0_12px_45px_rgba(6,48,74,0.12)] backdrop-blur-2xl sm:mt-4"
               : "mx-auto mt-0 max-w-360 rounded-none border border-transparent"
           }`}
         >
           <div
-            className={`mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-2 transition-all duration-500 sm:gap-4 lg:grid-cols-[1fr_2fr_1fr] ${
+            className={`${h.row} mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-2 transition-all duration-500 sm:gap-4 lg:grid-cols-[1fr_2fr_1fr] ${
               scrolled
                 ? "h-15 px-4 md:px-6 lg:h-16"
                 : "h-17 px-4 md:px-6 lg:h-20"
@@ -401,7 +403,7 @@ export default function Header() {
               aria-label="Main navigation"
               className="hidden h-full items-center justify-center lg:flex"
             >
-              <div className="flex items-center gap-1 rounded-full border border-white/65 bg-gray-100/65 p-1.5 shadow-[0_5px_20px_rgba(6,48,74,0.045)] backdrop-blur-xl">
+              <div className={h.navRail}>
                 {navLinks.map((link) => {
                   const isOpen = activeMega === link.name;
                   const isActive = pathname === link.href;
@@ -419,8 +421,8 @@ export default function Header() {
                           type="button"
                           aria-expanded={isOpen}
                           aria-controls="header-mega-menu"
-                          onClick={() =>
-                            setActiveMega(isOpen ? null : link.name)
+                          onClick={(event) =>
+                            setActiveMega(event.detail === 0 && isOpen ? null : link.name)
                           }
                           className={`flex min-h-9 items-center gap-1.5 rounded-full px-4 font-sans text-[14px] font-medium transition-all duration-300 ${
                             isOpen
@@ -457,7 +459,7 @@ export default function Header() {
             </nav>
 
             {/* RIGHT ICONS */}
-            <div className="flex items-center justify-end gap-0.5 sm:gap-1.5">
+            <div className={`${h.tools} flex items-center justify-end gap-0.5 sm:gap-1.5`}>
               <button
                 type="button"
                 aria-label="Search products"

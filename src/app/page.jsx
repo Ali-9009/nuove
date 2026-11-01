@@ -2,7 +2,7 @@ import Bestsellers from "@/components/Bestsellers";
 import BrandIntroduction from "@/components/BrandIntroduction";
 import BuildYourRoutine from "@/components/BuildYourRoutine";
 import CustomerReviews from "@/components/CustomerReviews";
-import EmailSignup from "@/components/EmailSignup";
+import V3Newsletter from "@/components/V3Newsletter";
 import FeaturedProductSpotlight from "@/components/FeaturedProductSpotlight";
 import Hero from "@/components/Hero";
 import ShopByConcern from "@/components/ShopByConcern";
@@ -33,7 +33,7 @@ export default function HomePage() {
 
       <CustomerReviews />
 
-      <EmailSignup />
+      <V3Newsletter />
     </main>
   );
 }

@@ -168,7 +168,7 @@ function FeatureInfo({ feature, align = "left", delay = 0 }) {
   return (
     <article
       style={{ animationDelay: `${delay}ms` }}
-      className={`border-primary/6 flex min-w-0 animate-[bundleFeatureIn_650ms_cubic-bezier(0.22,1,0.36,1)_both] flex-col rounded-[20px] border bg-white/65 px-4 py-5 font-sans shadow-[0_10px_35px_rgba(6,48,74,0.035)] backdrop-blur-sm sm:px-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:px-0 lg:py-4 lg:shadow-none lg:backdrop-blur-none ${
+      className={`border-primary/6 flex min-w-0 animate-[bundleFeatureIn_650ms_cubic-bezier(0.22,1,0.36,1)_both] flex-col rounded-[20px] border bg-white/65 px-4 py-5 font-sans shadow-[0_10px_35px_rgba(6,48,74,0.035)] backdrop-blur-sm sm:px-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:px-0 lg:py-1 lg:shadow-none lg:backdrop-blur-none ${
         align === "right"
           ? "lg:items-start lg:text-left"
           : "lg:items-end lg:text-right"
@@ -180,15 +180,15 @@ function FeatureInfo({ feature, align = "left", delay = 0 }) {
       </span>
 
       {/* TITLE */}
-      <h4 className="text-primary mt-4 font-sans text-[16px] leading-[1.4] font-semibold sm:text-[17px]">
+      <h4 className="text-primary mt-4 lg:mt-2 font-sans text-[16px] leading-[1.4] font-semibold sm:text-[17px]">
         {feature.title}
       </h4>
 
       {/* DIVIDER */}
-      <div className="mt-3 h-px w-14 bg-[#B9D4DD]" />
+      <div className="mt-3 lg:mt-2 h-px w-14 bg-[#B9D4DD]" />
 
       {/* DESCRIPTION */}
-      <p className="text-primary/60 mt-3 max-w-[260px] font-sans text-[14px] leading-[1.7] sm:text-[15px]">
+      <p className="text-primary/60 mt-3 lg:mt-2 max-w-[260px] font-sans text-[14px] leading-[1.7] sm:text-[15px]">
         {feature.description}
       </p>
     </article>
@@ -214,11 +214,11 @@ export default function RitualBundles() {
     <section
       id="ritual-bundles"
       aria-labelledby="ritual-bundles-heading"
-      className="px-4 py-12 md:px-6 lg:py-16"
+      className="px-4 py-12 md:px-6 lg:flex lg:h-svh lg:min-h-[800px] lg:flex-col lg:justify-center lg:pt-28 lg:pb-10"
     >
-      <div className="mx-auto max-w-360">
+      <div className="mx-auto w-full max-w-360">
         {/* SECTION HEADER */}
-        <header className="mb-9 flex flex-col justify-between gap-5 lg:mb-11 lg:flex-row lg:items-end">
+        <header className="mb-9 flex flex-col justify-between gap-5 lg:mb-5 lg:flex-row lg:items-end">
           <div>
             <span className="mb-3 inline-flex items-center gap-2 font-sans text-[13px] font-medium tracking-[0.08em] text-[#6999AD] uppercase">
               <Sparkles size={16} strokeWidth={1.5} />
@@ -227,7 +227,7 @@ export default function RitualBundles() {
 
             <h2
               id="ritual-bundles-heading"
-              className="font-heading text-primary text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05] font-normal"
+              className="font-heading text-primary text-[clamp(2.5rem,3.4vw,3.6rem)] leading-[1.05] font-normal"
             >
               The Ritual{" "}
               <span className="text-[#6999AD] italic">Collection.</span>
@@ -242,7 +242,7 @@ export default function RitualBundles() {
 
         {/* MAIN SHOWCASE */}
         <div
-          className="border-primary/8 relative isolate overflow-hidden rounded-[28px] border px-4 py-7 sm:px-8 sm:py-9 lg:rounded-[36px] lg:px-12 lg:py-10"
+          className="border-primary/8 relative isolate overflow-hidden rounded-[28px] border px-4 py-7 sm:px-8 sm:py-9 lg:rounded-[36px] lg:px-12 lg:py-5"
           style={{
             background: activeBundle.background,
           }}
@@ -294,16 +294,16 @@ export default function RitualBundles() {
             className="relative z-10 animate-[bundleReveal_600ms_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
           >
             {/* NAME ABOVE PRODUCT */}
-            <div className="mx-auto mt-8 max-w-[700px] text-center">
+            <div className="mx-auto mt-8 max-w-[700px] text-center lg:mt-3">
               <span className="font-sans text-[13px] font-medium tracking-[0.1em] text-[#6999AD] uppercase">
                 {activeBundle.subtitle}
               </span>
 
-              <h3 className="font-heading text-primary mt-2 text-[clamp(2.7rem,4.3vw,4.6rem)] leading-[1]">
+              <h3 className="font-heading text-primary mt-1 text-[clamp(2.4rem,3.2vw,3.4rem)] leading-[1]">
                 {activeBundle.name}
               </h3>
 
-              <p className="text-primary/65 mx-auto mt-3 max-w-[460px] font-sans text-[15px] leading-[1.7]">
+              <p className="text-primary/65 mx-auto mt-3 max-w-[460px] font-sans text-[15px] leading-[1.7] lg:mt-1 lg:text-[14px]">
                 {activeBundle.description}
               </p>
             </div>
@@ -315,9 +315,9 @@ export default function RitualBundles() {
                 MOBILE/TABLET:
                 IMAGE FIRST | INFO GRID BELOW
             ===================================== */}
-            <div className="mx-auto mt-6 grid max-w-[1260px] grid-cols-1 items-center gap-6 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-7 xl:gap-10">
+            <div className="mx-auto mt-6 grid max-w-[1260px] grid-cols-1 items-center gap-6 lg:mt-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-7 xl:gap-10">
               {/* LEFT FEATURES — DESKTOP */}
-              <div className="hidden flex-col justify-center gap-10 lg:flex xl:gap-14">
+              <div className="hidden flex-col justify-center gap-4 lg:flex xl:gap-6">
                 <FeatureInfo
                   feature={activeBundle.features[0]}
                   align="left"
@@ -335,7 +335,7 @@ export default function RitualBundles() {
               <div className="relative order-1 min-w-0 lg:order-2">
                 <div className="relative mx-auto w-full max-w-[580px]">
                   {/* SOFT IMAGE FRAME */}
-                  <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[22px] border border-white/65 shadow-[0_22px_55px_rgba(6,48,74,0.055)] sm:aspect-[6/4] lg:aspect-[4/5] xl:aspect-[5/4]">
+                  <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[22px] border border-white/65 shadow-[0_22px_55px_rgba(6,48,74,0.055)] sm:aspect-[6/4] lg:aspect-auto lg:h-[max(220px,calc(100svh-610px))] xl:aspect-auto">
                     <Image
                       src={activeBundle.image}
                       alt={`${activeBundle.name} skincare bundle`}
@@ -361,7 +361,7 @@ export default function RitualBundles() {
               </div>
 
               {/* RIGHT FEATURES — DESKTOP */}
-              <div className="hidden flex-col justify-center gap-10 lg:order-3 lg:flex xl:gap-14">
+              <div className="hidden flex-col justify-center gap-4 lg:order-3 lg:flex xl:gap-6">
                 <FeatureInfo
                   feature={activeBundle.features[1]}
                   align="right"
@@ -389,7 +389,7 @@ export default function RitualBundles() {
             </div>
 
             {/* INCLUDED PRODUCTS */}
-            <div className="border-primary/10 mx-auto mt-8 max-w-[900px] border-t pt-7 text-center lg:mt-10">
+            <div className="border-primary/10 mx-auto mt-8 max-w-[900px] border-t pt-7 text-center lg:mt-3 lg:pt-3">
               <div className="flex items-center justify-center gap-2">
                 <PackageCheck
                   size={19}
