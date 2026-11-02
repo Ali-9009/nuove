@@ -203,23 +203,41 @@ export function ComplementaryItem() {
   );
 }
 export function CartSummary({ showCheckout = true }) {
-  const { subtotal, count } = useCart();
+  const { subtotal, count, closeDrawer } = useCart();
+
   return (
     <div className="space-y-4">
       <FreeShippingProgress subtotal={subtotal} />
+
       <div className="text-primary flex items-center justify-between font-sans text-[15px] font-semibold">
         <span>Subtotal ({count} items)</span>
         <span>{money(subtotal)}</span>
       </div>
+
       {showCheckout && (
-        <button
-          type="button"
-          disabled
-          className="bg-primary/45 flex min-h-[54px] w-full cursor-not-allowed items-center justify-center gap-2 rounded-full px-5 font-sans text-[14px] font-semibold text-white"
-          title="Checkout requires a payment and order backend"
+        <Link
+          href="/checkout"
+          aria-disabled={count === 0}
+          tabIndex={count === 0 ? -1 : undefined}
+          onClick={(event) => {
+            if (count === 0) {
+              event.preventDefault();
+              return;
+            }
+
+            closeDrawer?.();
+          }}
+          className={`group flex min-h-[54px] w-full items-center justify-between gap-3 rounded-full py-1.5 pr-1.5 pl-6 font-sans text-[14px] font-semibold text-white transition-all duration-300 ${
+            count === 0
+              ? "bg-primary/45 pointer-events-none cursor-not-allowed"
+              : "bg-primary hover:bg-[#0A4968]"
+          }`}
         >
-          Checkout unavailable in preview <ArrowUpRight size={17} />
-        </button>
+          Proceed to Checkout
+          <span className="text-primary flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EDF3] transition-transform duration-300 group-hover:rotate-45">
+            <ArrowUpRight size={19} strokeWidth={1.5} />
+          </span>
+        </Link>
       )}
     </div>
   );

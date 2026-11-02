@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { executeCart } from '@/lib/shopify-cart';
+// import { executeCart } from '@/lib/shopify-cart';
 
 export const dynamic = 'force-dynamic';
 
