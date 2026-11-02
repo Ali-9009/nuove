@@ -72,7 +72,7 @@ export default function Bestsellers() {
         </header>
 
         {/* RESPONSIVE PRODUCT GRID */}
-        <div className="grid grid-cols-1 items-stretch gap-x-3 gap-y-8 sm:gap-x-5 sm:gap-y-10 md:gap-x-6 xl:grid-cols-4 xl:gap-x-5 xl:gap-y-12">
+        <div className="grid grid-cols-1 items-stretch gap-x-3 gap-y-8 sm:gap-x-5 sm:gap-y-10 md:gap-x-6  md:grid-cols-2 lg:grid-cols-4 xl:gap-x-5 xl:gap-y-12">
           {bestsellers.map((product) => (
             <article
               key={product.id ?? product.handle}

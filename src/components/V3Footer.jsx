@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const cols = [
   { title: "Shop", links: [["Shop All", "/collections/all"], ["Shop by Concern", "/collections"], ["Routines & Sets", "/collections/routines"], ["Discovery & Travel", "/collections/discovery"]] },
-  { title: "About", links: [["Our Philosophy", "/pages/our-story"], ["Ingredient Library", "/pages/ingredients"], ["Journal", "/blogs/journal"], ["Affiliate Program", "/pages/affiliate"]] },
+  { title: "About", links: [["Our Philosophy", "/our-story"], ["Ingredient Library", "/pages/ingredients"], ["Journal", "/blogs/journal"], ["Affiliate Program", "/pages/affiliate"]] },
   { title: "Care", links: [["Contact Us", "/pages/contact"], ["Shipping & Returns", "/pages/shipping-returns"], ["FAQ", "/pages/faq"], ["Track an Order", "/pages/track-order"]] },
   { title: "Policies", links: [["Privacy Policy", "/pages/privacy-policy"], ["Terms of Service", "/pages/terms"], ["Refund Policy", "/pages/refund-policy"], ["Accessibility", "/pages/accessibility"]] },
 ];

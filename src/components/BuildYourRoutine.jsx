@@ -17,10 +17,11 @@ import {
 } from "lucide-react";
 
 import { getProductByHandle, formatPrice } from "@/data/products";
-import { addToCart } from "@/lib/cart";
+
+import { useCart } from "@/context/CartContext";
+import { cartErrorToast } from "@/lib/cart-toast";
 
 //  SLIDES — CHANGE YOUR LOCAL IMAGES HERE
-
 const slides = [
   {
     id: "serum",
@@ -129,7 +130,6 @@ const slides = [
 ];
 
 // FEATURE CARD
-
 function FeatureCard({ feature, delay = 0, animate = true }) {
   const Icon = feature.icon;
 
@@ -178,7 +178,6 @@ function FeatureCard({ feature, delay = 0, animate = true }) {
 }
 
 //  PRODUCT IMAGE
-
 function ShowcaseImage({ slide, product, priority = false }) {
   return (
     <div className="relative flex h-70 w-full items-center justify-center sm:h-[340px] lg:h-[390px]">
@@ -208,7 +207,6 @@ function ShowcaseImage({ slide, product, priority = false }) {
 }
 
 // PURCHASE BAR
-
 function PurchaseBar({ product }) {
   const [added, setAdded] = useState(false);
 
@@ -218,10 +216,15 @@ function PurchaseBar({ product }) {
   const price = variant?.price ?? product.price;
   const size = variant?.size ?? product.size;
 
-  function handleAdd() {
-    if (!product.available) return;
+  const { addItem } = useCart();
 
-    const success = addToCart(product, 1, variant);
+  function handleAdd() {
+    if (!product.available) {
+      cartErrorToast("This product is currently unavailable.");
+      return;
+    }
+
+    const success = addItem(product, 1, variant);
 
     if (success) {
       setAdded(true);
@@ -229,6 +232,8 @@ function PurchaseBar({ product }) {
       window.setTimeout(() => {
         setAdded(false);
       }, 1800);
+    } else {
+      cartErrorToast("Unable to add this product to your bag.");
     }
   }
 
@@ -278,7 +283,6 @@ function PurchaseBar({ product }) {
 }
 
 //  MAIN COMPONENT
-
 export default function BuildYourRoutine() {
   const sectionRef = useRef(null);
 

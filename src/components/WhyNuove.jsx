@@ -84,7 +84,7 @@ export default function WhyNuove() {
         </div>
         <div className="mt-8 flex justify-center">
           <Link
-            href="/pages/our-story"
+            href="/our-story"
             className="flex h-[52px] items-center gap-3 rounded-full bg-[#092D43] pr-1.5 pl-[22px] text-sm font-medium text-[#F8F6F1] transition-colors hover:bg-[#061E2D]"
           >
             Discover Our Philosophy

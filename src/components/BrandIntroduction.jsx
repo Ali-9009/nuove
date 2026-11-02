@@ -92,7 +92,7 @@ export default function BrandIntroduction() {
               </ul>
 
               <Link
-                href="/pages/our-story"
+                href="/our-story"
                 className="group bg-primary mt-8 inline-flex min-h-[52px] items-center gap-5 rounded-full py-1.5 pr-1.5 pl-6 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[#0A4968]"
               >
                 Discover Our Story

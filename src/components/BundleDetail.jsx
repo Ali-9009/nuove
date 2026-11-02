@@ -13,7 +13,8 @@ import {
   Sun,
 } from "lucide-react";
 import { getProductByHandle, formatPrice } from "@/data/products";
-import { addToCart } from "@/lib/cart";
+import { useCart } from "@/context/CartContext";
+import { cartErrorToast } from "@/lib/cart-toast";
 
 function RoutineBlock({ title, icon: Icon, steps }) {
   return (
@@ -51,7 +52,8 @@ function RoutineBlock({ title, icon: Icon, steps }) {
 }
 
 export default function BundleDetail({ bundle }) {
-  const [message, setMessage] = useState("");
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
   const products = bundle.productHandles.map(getProductByHandle);
   const missing = products.some((product) => !product);
   const available =
@@ -82,29 +84,36 @@ export default function BundleDetail({ bundle }) {
     bundle.price < individualTotal;
 
   function handleAddBundle() {
-    setMessage("");
-    if (!available) {
-      setMessage("One or more included products are currently unavailable.");
+    if (!available || !allPricesAvailable) {
+      cartErrorToast("This bundle is currently unavailable.");
       return;
     }
 
-    // Prototype cart only: adds components individually. Shopify must implement
-    // an actual bundle SKU/discount and atomic inventory checks before launch.
-    let addedCount = 0;
-    for (const product of products) {
-      const variant =
-        product.variants?.find((item) => item.available !== false) || null;
-      try {
-        if (addToCart(product, 1, variant)) addedCount += 1;
-      } catch {
-        // Report partial cart changes rather than claiming the bundle was fully added.
-      }
+    // One cart line for the entire set. No separate component additions.
+    // Until an approved bundle price exists, use the sum of individual values.
+    const bundlePrice = showBundlePrice ? bundle.price : individualTotal;
+    const bundleCartProduct = {
+      handle: bundle.handle,
+      name: bundle.name,
+      category: "Bundles",
+      image: bundle.heroImage || products.find((p) => p?.image)?.image || "",
+      price: bundlePrice,
+      available: true,
+      cartType: "bundle",
+      includedProducts: products.map((product) => ({
+        handle: product.handle,
+        name: product.name,
+        quantity: 1,
+      })),
+    };
+
+    const success = addItem(bundleCartProduct, 1);
+    if (success) {
+      setAdded(true);
+      window.setTimeout(() => setAdded(false), 1800);
+    } else {
+      cartErrorToast("Unable to add this bundle to your bag.");
     }
-    setMessage(
-      addedCount === products.length
-        ? "All included products were added separately to your bag. Bundle discounts are not yet applied."
-        : `${addedCount} of ${products.length} products were added. Please review your bag before checkout.`,
-    );
   }
 
   return (
@@ -215,7 +224,7 @@ export default function BundleDetail({ bundle }) {
                 onClick={handleAddBundle}
                 className="group bg-primary mt-6 flex min-h-[56px] w-full items-center justify-between rounded-full py-1.5 pr-1.5 pl-6 text-[15px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Add Entire Bundle to Bag{" "}
+                {added ? "Added to Bag" : "Add Entire Bundle to Bag"}{" "}
                 <span className="text-primary flex h-11 w-11 items-center justify-center rounded-full bg-[#D8EDF3]">
                   <ShoppingBag size={19} />
                 </span>
@@ -225,21 +234,6 @@ export default function BundleDetail({ bundle }) {
                 inventory, discount and fulfillment setup must be completed
                 before launch.
               </p>
-              {message && (
-                <p
-                  role="status"
-                  aria-live="polite"
-                  className="text-primary mt-3 text-[14px] leading-[1.6]"
-                >
-                  {message}{" "}
-                  <Link
-                    href="/cart"
-                    className="font-semibold underline underline-offset-4"
-                  >
-                    View Bag
-                  </Link>
-                </p>
-              )}
             </div>
           </div>
         </div>

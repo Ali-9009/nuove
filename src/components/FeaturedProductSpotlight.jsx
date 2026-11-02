@@ -15,6 +15,9 @@ import {
 import { getProductByHandle, formatPrice } from "@/data/products";
 import { addToCart } from "@/lib/cart";
 
+import { useCart } from "@/context/CartContext";
+import { cartErrorToast } from "@/lib/cart-toast";
+
 export default function FeaturedProductSpotlight() {
   const [added, setAdded] = useState(false);
 
@@ -27,16 +30,29 @@ export default function FeaturedProductSpotlight() {
 
   const price = variant?.price ?? product.price;
 
-  function handleAddToCart() {
-    if (!product.available) return;
+  const { addItem } = useCart();
 
-    const success = addToCart(product, 1, variant);
-
-    if (success) {
-      setAdded(true);
-      window.setTimeout(() => setAdded(false), 1800);
-    }
+ function handleAddToCart() {
+  if (!product.available) {
+    cartErrorToast("This product is currently unavailable.");
+    return;
   }
+
+  const variant =
+    product.variants?.find((item) => item.available !== false) || null;
+
+  const success = addItem(product, 1, variant);
+
+  if (success) {
+    setAdded(true);
+
+    window.setTimeout(() => {
+      setAdded(false);
+    }, 1800);
+  } else {
+    cartErrorToast("Unable to add this product to your bag.");
+  }
+}
 
   return (
     <section

@@ -23,6 +23,9 @@ import {
 import { addToCart } from "@/lib/cart";
 import { formatPrice } from "@/data/products";
 
+import { useCart } from '@/context/CartContext';
+import { cartErrorToast } from '@/lib/cart-toast';
+
 function ProductGallery({ product }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -263,18 +266,15 @@ export default function ProductDetails({
     return () => observer.disconnect();
   }, []);
 
+  const { addItem } = useCart();
+
   useEffect(() => {
     setMessage("");
   }, [selectedVariant]);
 
   function handleAddToCart() {
-    const success = addToCart(product, quantity, variant);
-
-    setMessage(
-      success
-        ? `${quantity} item${quantity > 1 ? "s" : ""} added to your bag.`
-        : "This product is currently unavailable.",
-    );
+    const success = addItem(product, quantity, variant);
+    if (!success) cartErrorToast("This product is currently unavailable.");
   }
 
   return (

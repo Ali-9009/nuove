@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { getProductByHandle, formatPrice } from "@/data/products";
+import CartButton from "@/components/cart/CartButton";
 import h from "./Header.module.css";
 
 /* ==========================================
@@ -84,7 +85,7 @@ const megaMenus = {
       {
         heading: "Explore",
         links: [
-          { name: "Our Philosophy", href: "/pages/our-story" },
+          { name: "Our Philosophy", href: "/our-story" },
           { name: "Ingredient Library", href: "/pages/ingredients" },
           { name: "Discovery & Travel", href: "/collections/discovery" },
         ],
@@ -483,14 +484,7 @@ export default function Header() {
                 <Search size={20} strokeWidth={1.5} />
               </button>
 
-              <Link
-                href="/cart"
-                aria-label="Shopping cart"
-                onMouseEnter={closeMega}
-                className="text-primary flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/70"
-              >
-                <ShoppingBag size={20} strokeWidth={1.5} />
-              </Link>
+              <CartButton onMouseEnter={closeMega} />
 
               <Link
                 href="/account"
