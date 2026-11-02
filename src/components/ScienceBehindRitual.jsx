@@ -186,7 +186,7 @@ export default function ScienceBehindRitual() {
       aria-labelledby="science-heading"
       className="px-4 py-12 md:px-6 lg:py-20"
     >
-      <div className="mx-auto max-w-360 rounded-[30px] bg-linear-to-b from-[#EAF6F8] to-[#F8F7F4] px-5 py-16 sm:rounded-[38px] sm:px-8 lg:px-12 lg:py-20">
+      <div className="mx-auto max-w-360 rounded-3xl bg-linear-to-b from-[#EAF6F8] to-[#F8F7F4] py-16 sm:px-8 lg:px-12 lg:py-20">
         <header className="mx-auto max-w-200 text-center">
           <h2
             id="science-heading"

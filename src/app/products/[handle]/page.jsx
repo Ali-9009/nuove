@@ -75,8 +75,8 @@ export default async function ProductPage({ params }) {
   );
 
   return (
-    <main className="min-h-screen">
-      <div className="mx-auto mt-12 max-w-360 px-4 py-8 md:mt-16 md:px-6 lg:py-12">
+    <main className="px-4 pt-28 pb-20 font-sans md:px-6 lg:pt-36">
+      <div className="mx-auto max-w-360">
         {/* BREADCRUMB */}
         <nav
           aria-label="Breadcrumb"

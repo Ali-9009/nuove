@@ -2,22 +2,51 @@ import Image from "next/image";
 import Link from "next/link";
 
 const pillars = [
-  { n: "01", t: "Peptide-Focused Formulations", d: "Peptides sit at the centre of every NUOVÉ formula." },
-  { n: "02", t: "Thoughtfully Selected Ingredients", d: "Every ingredient has a clear role." },
-  { n: "03", t: "Designed for Everyday Rituals", d: "Simple steps for morning and evening." },
-  { n: "04", t: "Elevated Quality & Presentation", d: "Every detail designed to feel considered." },
+  {
+    n: "01",
+    t: "Peptide-Focused Formulations",
+    d: "Peptides sit at the centre of every NUOVÉ formula.",
+  },
+  {
+    n: "02",
+    t: "Thoughtfully Selected Ingredients",
+    d: "Every ingredient has a clear role.",
+  },
+  {
+    n: "03",
+    t: "Designed for Everyday Rituals",
+    d: "Simple steps for morning and evening.",
+  },
+  {
+    n: "04",
+    t: "Elevated Quality & Presentation",
+    d: "Every detail designed to feel considered.",
+  },
 ];
 
 export default function WhyNuove() {
   return (
-    <section id="philosophy" aria-labelledby="philosophy-heading" className="pb-[clamp(80px,9vw,140px)] text-[#092D43]">
+    <section
+      id="philosophy"
+      aria-labelledby="philosophy-heading"
+      className="max-w-360 mx-auto text-[#092D43]"
+    >
       <div className="mx-auto max-w-[1560px] px-[clamp(20px,3vw,48px)] text-center">
-        <Image src="/assets/nuove-symbol.png" alt="" width={40} height={46} className="mx-auto block w-10" />
+        <Image
+          src="/assets/nuove-symbol.png"
+          alt=""
+          width={40}
+          height={46}
+          className="mx-auto block w-10"
+        />
         <h2
           id="philosophy-heading"
           className="mx-auto mt-5 max-w-[900px] !font-sans text-[clamp(32px,3.6vw,60px)] leading-[1.04] font-light tracking-[-0.045em] text-balance"
         >
-          The NUOVÉ Philosophy. <span className="text-[#7FA3B5]">Skincare that deserves to feel considered.</span>
+          The NUOVÉ Philosophy.{" "}
+          <span className="text-[#7FA3B5]">
+            Skincare that deserves to feel considered.
+          </span>
         </h2>
       </div>
 
@@ -44,8 +73,12 @@ export default function WhyNuove() {
               <span className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#092D43] text-xs font-semibold text-[#F8F6F1]">
                 {p.n}
               </span>
-              <div className="mt-3.5 text-[17px] leading-[1.25] font-medium">{p.t}</div>
-              <p className="mt-1.5 text-sm leading-[1.55] text-[#243039]">{p.d}</p>
+              <div className="mt-3.5 text-[17px] leading-[1.25] font-medium">
+                {p.t}
+              </div>
+              <p className="mt-1.5 text-sm leading-[1.55] text-[#243039]">
+                {p.d}
+              </p>
             </div>
           ))}
         </div>
@@ -55,7 +88,9 @@ export default function WhyNuove() {
             className="flex h-[52px] items-center gap-3 rounded-full bg-[#092D43] pr-1.5 pl-[22px] text-sm font-medium text-[#F8F6F1] transition-colors hover:bg-[#061E2D]"
           >
             Discover Our Philosophy
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EDF3] text-[#092D43]">↗</span>
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EDF3] text-[#092D43]">
+              ↗
+            </span>
           </Link>
         </div>
       </div>

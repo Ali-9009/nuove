@@ -3,506 +3,254 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import {
-  ArrowUpRight,
   ArrowRight,
-  Check,
-  Sparkles,
-  PackageCheck,
+  ArrowUpRight,
   Droplets,
   Layers3,
   Moon,
+  Sparkles,
   Sun,
 } from "lucide-react";
+import { bundles } from "@/data/bundles";
+import { getProductByHandle } from "@/data/products";
 
-const bundles = [
-  {
-    id: "essential",
-    name: "The Essential Ritual",
-    shortName: "Essential",
-    subtitle: "Your Everyday Essentials",
-
-    description:
-      "A thoughtfully paired skincare routine for your daily moments of care.",
-
-    image: "/assets/plan-duo-1.png",
-
-    products: ["Soothing Peptide Cleanser", "Barrier Peptide Serum"],
-
-    size: "2-Piece Set",
-    price: null,
-    href: "/collections/routines",
-
-    background: "linear-gradient(135deg,#F7FAFA 0%,#EEF7F9 55%,#E5F0F3 100%)",
-
-    featured: false,
-
-    features: [
-      {
-        title: "The Daily Essential",
-        description: "A simple pairing for your everyday skincare ritual.",
-        icon: Sun,
-      },
-      {
-        title: "Thoughtfully Paired",
-        description: "Two complementary steps, brought together in one set.",
-        icon: Sparkles,
-      },
-      {
-        title: "Cleanse & Follow",
-        description: "Start with your cleanser, then apply your serum.",
-        icon: Droplets,
-      },
-      {
-        title: "Two Considered Steps",
-        description: "A straightforward routine with two selected products.",
-        icon: Layers3,
-      },
-    ],
-  },
-
-  {
-    id: "complete",
-    name: "The Complete Ritual",
-    shortName: "Complete",
-    subtitle: "The Full Experience",
-
-    description:
-      "A complete skincare ritual, bringing together complementary steps.",
-
-    image: "/assets/plan-com.png",
-
-    products: [
-      "Soothing Peptide Cleanser",
-      "Barrier Peptide Serum",
-      "Pure Ceramide Barrier Cream",
-    ],
-
-    size: "3-Piece Set",
-    price: null,
-    href: "/collections/routines",
-
-    background: "linear-gradient(135deg,#FAFBFB 0%,#EFF6F8 55%,#E5F0F4 100%)",
-
-    featured: true,
-
-    features: [
-      {
-        title: "Complete Your Ritual",
-        description: "Three thoughtfully selected steps for everyday skincare.",
-        icon: Sparkles,
-      },
-      {
-        title: "A Considered Collection",
-        description: "Cleanser, serum, and cream in one curated set.",
-        icon: PackageCheck,
-      },
-      {
-        title: "Beautifully Simple",
-        description: "A routine designed around complementary products.",
-        icon: Droplets,
-      },
-      {
-        title: "Three Essential Steps",
-        description: "Cleanse, apply serum, and finish with your cream.",
-        icon: Layers3,
-      },
-    ],
-  },
-
-  {
-    id: "evening",
-    name: "The Evening Ritual",
-    shortName: "Evening",
-    subtitle: "Your Nighttime Essentials",
-
-    description:
-      "A considered collection for slowing down and enjoying your evening routine.",
-
-    image: "/assets/plan-duo-2.png",
-
-    products: [
-      "Barrier Peptide Serum",
-      "Pure Ceramide Barrier Cream",
-      "Overnight Peptide Mask",
-    ],
-
-    size: "2-Piece Set",
-    price: null,
-    href: "/collections/routines",
-
-    background: "linear-gradient(135deg,#FCFAF7 0%,#F7F0E9 55%,#F2E9DF 100%)",
-
-    featured: false,
-
-    features: [
-      {
-        title: "The Evening Edit",
-        description: "A curated collection for your nighttime skincare ritual.",
-        icon: Moon,
-      },
-      {
-        title: "Take Your Time",
-        description: "Make your evening routine a moment of personal care.",
-        icon: Sparkles,
-      },
-      {
-        title: "Layer Your Routine",
-        description: "A serum and cream paired with an overnight mask.",
-        icon: Droplets,
-      },
-      {
-        title: "A Thoughtful Finish",
-        description:
-          "Three complementary products for your evening collection.",
-        icon: Layers3,
-      },
-    ],
-  },
-];
+const icons = {
+  droplets: Droplets,
+  layers: Layers3,
+  moon: Moon,
+  sparkles: Sparkles,
+  sun: Sun,
+};
 
 function FeatureInfo({ feature, align = "left", delay = 0 }) {
-  const Icon = feature.icon;
-
+  const Icon = icons[feature.icon] || Sparkles;
   return (
     <article
       style={{ animationDelay: `${delay}ms` }}
-      className={`border-primary/6 flex min-w-0 animate-[bundleFeatureIn_650ms_cubic-bezier(0.22,1,0.36,1)_both] flex-col rounded-[20px] border bg-white/65 px-4 py-5 font-sans shadow-[0_10px_35px_rgba(6,48,74,0.035)] backdrop-blur-sm sm:px-5 lg:rounded-none lg:border-0 lg:bg-transparent lg:px-0 lg:py-1 lg:shadow-none lg:backdrop-blur-none ${
-        align === "right"
-          ? "lg:items-start lg:text-left"
-          : "lg:items-end lg:text-right"
-      } motion-reduce:animate-none`}
+      className={`border-primary/10 animate-[bundleFeatureIn_650ms_cubic-bezier(0.22,1,0.36,1)_both] rounded-[20px] border bg-white/75 p-4 backdrop-blur-sm motion-reduce:animate-none lg:border-0 lg:bg-transparent lg:p-1 lg:shadow-none ${align === "left" ? "lg:text-right" : "lg:text-left"}`}
     >
-      {/* ICON */}
-      <span className="text-primary flex h-10 w-10 items-center justify-center rounded-full bg-[#E6F3F6]">
-        <Icon size={20} strokeWidth={1.5} />
-      </span>
-
-      {/* TITLE */}
-      <h4 className="text-primary mt-4 lg:mt-2 font-sans text-[16px] leading-[1.4] font-semibold sm:text-[17px]">
+      <div
+        className={`mb-3 flex ${align === "left" ? "lg:justify-end" : "lg:justify-start"}`}
+      >
+        <span className="text-primary flex h-10 w-10 items-center justify-center rounded-full bg-white">
+          <Icon size={19} strokeWidth={1.5} />
+        </span>
+      </div>
+      <h4 className="text-primary font-sans text-[16px] font-semibold sm:text-[17px]">
         {feature.title}
       </h4>
-
-      {/* DIVIDER */}
-      <div className="mt-3 lg:mt-2 h-px w-14 bg-[#B9D4DD]" />
-
-      {/* DESCRIPTION */}
-      <p className="text-primary/60 mt-3 lg:mt-2 max-w-[260px] font-sans text-[14px] leading-[1.7] sm:text-[15px]">
+      <p className="text-primary/65 mt-2 font-sans text-[14px] leading-[1.65]">
         {feature.description}
       </p>
     </article>
   );
 }
 
-export default function RitualBundles() {
-  const [activeIndex, setActiveIndex] = useState(1);
-
-  const activeBundle = bundles[activeIndex];
-
-  function nextBundle() {
-    setActiveIndex((current) => (current + 1) % bundles.length);
-  }
-
-  function previousBundle() {
-    setActiveIndex(
-      (current) => (current - 1 + bundles.length) % bundles.length,
+function BundleVisual({ bundle }) {
+  const products = bundle.productHandles
+    .map(getProductByHandle)
+    .filter(Boolean);
+  if (bundle.heroImage) {
+    return (
+      <Image
+        src={bundle.heroImage}
+        alt={`${bundle.name} with all included products`}
+        fill
+        sizes="(max-width: 1024px) 100vw, 45vw"
+        className="object-contain p-4"
+      />
     );
   }
+  // Composed from existing product imagery; does not require unapproved bundle art.
+  return (
+    <div className="absolute inset-0 flex items-end justify-center gap-0 px-3 pt-8 pb-6">
+      {products.map((product, index) => (
+        <div
+          key={product.handle}
+          className={`relative min-w-0 flex-1 ${index % 2 ? "z-10 -mx-3 -translate-y-3" : "z-0"}`}
+          style={{ height: index % 2 ? "83%" : "73%" }}
+        >
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 30vw, 180px"
+            className="object-contain drop-shadow-[0_15px_17px_rgba(6,48,74,0.10)]"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
 
+export default function RitualBundles() {
+  const published = bundles.filter((bundle) => bundle.published);
+  const [activeIndex, setActiveIndex] = useState(2);
+  const bundle = published[activeIndex];
+  if (!bundle) return null;
   return (
     <section
       id="ritual-bundles"
       aria-labelledby="ritual-bundles-heading"
-      className="px-4 py-12 md:px-6 lg:flex lg:h-svh lg:min-h-[800px] lg:flex-col lg:justify-center lg:pt-28 lg:pb-10"
+      className="px-4 py-12 md:px-6 lg:py-16"
     >
-      <div className="mx-auto w-full max-w-360">
-        {/* SECTION HEADER */}
-        <header className="mb-9 flex flex-col justify-between gap-5 lg:mb-5 lg:flex-row lg:items-end">
+      <div className="mx-auto max-w-360">
+        <header className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="mb-3 inline-flex items-center gap-2 font-sans text-[13px] font-medium tracking-[0.08em] text-[#6999AD] uppercase">
-              <Sparkles size={16} strokeWidth={1.5} />
-              Curated Skincare Sets
+            <span className="font-sans text-[13px] tracking-[0.12em] text-[#6999AD] uppercase">
+              NUOVÉ Curated Systems
             </span>
-
             <h2
               id="ritual-bundles-heading"
-              className="font-heading text-primary text-[clamp(2.5rem,3.4vw,3.6rem)] leading-[1.05] font-normal"
+              className="font-heading text-primary mt-2 text-[clamp(2.5rem,4vw,4.5rem)] leading-[1.05]"
             >
               The Ritual{" "}
-              <span className="text-[#6999AD] italic">Collection.</span>
+              <em className="font-normal text-[#6999AD]">Collection.</em>
             </h2>
           </div>
-
-          <p className="text-primary/65 max-w-[370px] font-sans text-[16px] leading-[1.7]">
-            Discover thoughtfully paired skincare sets for your everyday
-            routine.
+          <p className="text-primary/65 max-w-[380px] font-sans text-[16px] leading-[1.7]">
+            Considered skincare systems with their own step-by-step routine.
           </p>
         </header>
-
-        {/* MAIN SHOWCASE */}
         <div
-          className="border-primary/8 relative isolate overflow-hidden rounded-[28px] border px-4 py-7 sm:px-8 sm:py-9 lg:rounded-[36px] lg:px-12 lg:py-5"
-          style={{
-            background: activeBundle.background,
-          }}
+          className="border-primary/10 relative overflow-hidden rounded-[28px] border p-4 sm:p-8 lg:rounded-[36px] lg:px-12 lg:py-8"
+          style={{ background: bundle.background }}
         >
-          {/* SOFT BACKGROUND LIGHT */}
-          <div className="pointer-events-none absolute top-[42%] left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/65 blur-[95px]" />
-
-          {/* TOP NAVIGATION */}
-          <div className="relative z-20 flex flex-col items-center gap-5">
-            {/* BUNDLE SWITCH TABS */}
-            <div
-              role="group"
-              aria-label="Choose a skincare bundle"
-              className="flex w-full max-w-[530px] items-center justify-center gap-1.5 rounded-full border border-white/90 bg-white/75 p-1.5 shadow-[0_8px_30px_rgba(6,48,74,0.045)] backdrop-blur-xl"
-            >
-              {bundles.map((bundle, index) => {
-                const active = activeIndex === index;
-
-                return (
-                  <button
-                    key={bundle.id}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    aria-pressed={active}
-                    className={`flex min-h-[43px] min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full px-2 py-2 font-sans text-[13px] font-semibold transition-all duration-300 sm:px-5 sm:text-[15px] ${
-                      active
-                        ? "bg-primary text-white shadow-[0_6px_18px_rgba(6,48,74,0.12)]"
-                        : "text-primary/65 hover:text-primary hover:bg-white"
-                    } `}
-                  >
-                    {bundle.shortName}
-
-                    {bundle.featured && (
-                      <Sparkles
-                        size={14}
-                        strokeWidth={1.6}
-                        className="hidden sm:block"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ACTIVE BUNDLE */}
           <div
-            key={activeBundle.id}
-            className="relative z-10 animate-[bundleReveal_600ms_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+            className="relative z-10 mx-auto flex w-full max-w-[610px] gap-1 rounded-full border border-white bg-white/75 p-1.5 backdrop-blur-md"
+            role="group"
+            aria-label="Choose a skincare bundle"
           >
-            {/* NAME ABOVE PRODUCT */}
-            <div className="mx-auto mt-8 max-w-[700px] text-center lg:mt-3">
-              <span className="font-sans text-[13px] font-medium tracking-[0.1em] text-[#6999AD] uppercase">
-                {activeBundle.subtitle}
-              </span>
-
-              <h3 className="font-heading text-primary mt-1 text-[clamp(2.4rem,3.2vw,3.4rem)] leading-[1]">
-                {activeBundle.name}
+            {published.map((item, index) => (
+              <button
+                type="button"
+                key={item.handle}
+                aria-pressed={index === activeIndex}
+                onClick={() => setActiveIndex(index)}
+                className={`min-h-11 min-w-0 flex-1 rounded-full px-2 font-sans text-[12px] font-semibold transition-colors sm:text-[14px] ${index === activeIndex ? "bg-primary text-white" : "text-primary/70 hover:bg-white"}`}
+              >
+                {item.shortName}
+              </button>
+            ))}
+          </div>
+          <div
+            key={bundle.handle}
+            className="animate-[bundleReveal_500ms_ease-out_both] motion-reduce:animate-none"
+          >
+            <div className="mx-auto mt-7 max-w-[720px] text-center">
+              <p className="font-sans text-[13px] font-medium text-[#6999AD]">
+                {bundle.subtitle}
+              </p>
+              <h3 className="font-heading text-primary mt-2 text-[clamp(2.4rem,3.5vw,3.8rem)] leading-tight">
+                {bundle.name}
               </h3>
-
-              <p className="text-primary/65 mx-auto mt-3 max-w-[460px] font-sans text-[15px] leading-[1.7] lg:mt-1 lg:text-[14px]">
-                {activeBundle.description}
+              <p className="text-primary/65 mx-auto mt-2 max-w-[540px] font-sans text-[15px] leading-[1.65]">
+                {bundle.description}
               </p>
             </div>
-
-            {/* =====================================
-                DESKTOP:
-                LEFT INFO | IMAGE | RIGHT INFO
-
-                MOBILE/TABLET:
-                IMAGE FIRST | INFO GRID BELOW
-            ===================================== */}
-            <div className="mx-auto mt-6 grid max-w-[1260px] grid-cols-1 items-center gap-6 lg:mt-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-7 xl:gap-10">
-              {/* LEFT FEATURES — DESKTOP */}
-              <div className="hidden flex-col justify-center gap-4 lg:flex xl:gap-6">
+            <div className="mx-auto mt-6 grid max-w-[1230px] items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-8">
+              <div className="order-2 grid gap-3 sm:grid-cols-2 lg:order-1 lg:grid-cols-1 lg:gap-8">
                 <FeatureInfo
-                  feature={activeBundle.features[0]}
+                  feature={bundle.features[0]}
                   align="left"
-                  delay={180}
+                  delay={120}
                 />
-
                 <FeatureInfo
-                  feature={activeBundle.features[2]}
+                  feature={bundle.features[2]}
                   align="left"
-                  delay={480}
+                  delay={360}
                 />
               </div>
-
-              {/* CENTER PRODUCT IMAGE */}
-              <div className="relative order-1 min-w-0 lg:order-2">
-                <div className="relative mx-auto w-full max-w-[580px]">
-                  {/* SOFT IMAGE FRAME */}
-                  <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[22px] border border-white/65 shadow-[0_22px_55px_rgba(6,48,74,0.055)] sm:aspect-[6/4] lg:aspect-auto lg:h-[max(220px,calc(100svh-610px))] xl:aspect-auto">
-                    <Image
-                      src={activeBundle.image}
-                      alt={`${activeBundle.name} skincare bundle`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 45vw"
-                      className="object-contain transition-transform duration-700 hover:scale-[1.03]"
-                    />
-                  </div>
-
-                  {/* FEATURED LABEL */}
-                  {activeBundle.featured && (
-                    <span className="bg-primary absolute top-4 left-4 inline-flex items-center gap-2 rounded-full px-4 py-2 font-sans text-[13px] font-medium text-white">
-                      <Sparkles size={15} strokeWidth={1.5} />
-                      Featured Set
-                    </span>
-                  )}
-
-                  {/* SET SIZE */}
-                  <span className="text-primary absolute bottom-4 left-4 rounded-full border border-white/80 bg-white/85 px-4 py-2 font-sans text-[13px] font-medium backdrop-blur-md">
-                    {activeBundle.size}
+              <div className="order-1 lg:order-2">
+                <div className="relative mx-auto aspect-[5/4] w-full max-w-[550px] overflow-hidden rounded-[24px] border border-white/70 bg-white/30 shadow-[0_15px_45px_rgba(6,48,74,0.06)] sm:aspect-[6/4] lg:aspect-[5/4]">
+                  <BundleVisual bundle={bundle} />
+                  <span className="text-primary absolute bottom-3 left-3 rounded-full bg-white/85 px-4 py-2 text-[13px] font-medium">
+                    {bundle.productHandles.length}-Piece Set
                   </span>
                 </div>
               </div>
-
-              {/* RIGHT FEATURES — DESKTOP */}
-              <div className="hidden flex-col justify-center gap-4 lg:order-3 lg:flex xl:gap-6">
+              <div className="order-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 lg:gap-8">
                 <FeatureInfo
-                  feature={activeBundle.features[1]}
+                  feature={bundle.features[1]}
                   align="right"
-                  delay={330}
+                  delay={240}
                 />
-
                 <FeatureInfo
-                  feature={activeBundle.features[3]}
+                  feature={bundle.features[3]}
                   align="right"
-                  delay={630}
+                  delay={480}
                 />
               </div>
-
-              {/* MOBILE + TABLET FEATURES */}
-              <div className="order-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:hidden">
-                {activeBundle.features.map((feature, index) => (
-                  <FeatureInfo
-                    key={feature.title}
-                    feature={feature}
-                    align="right"
-                    delay={150 + index * 120}
-                  />
-                ))}
-              </div>
             </div>
-
-            {/* INCLUDED PRODUCTS */}
-            <div className="border-primary/10 mx-auto mt-8 max-w-[900px] border-t pt-7 text-center lg:mt-3 lg:pt-3">
-              <div className="flex items-center justify-center gap-2">
-                <PackageCheck
-                  size={19}
-                  strokeWidth={1.5}
-                  className="text-[#6999AD]"
-                />
-
-                <span className="text-primary font-sans text-[15px] font-semibold">
-                  What's Inside
-                </span>
-              </div>
-
-              <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-                {activeBundle.products.map((product) => (
-                  <li
-                    key={product}
-                    className="text-primary/70 inline-flex items-center gap-2 font-sans text-[14px] sm:text-[15px]"
-                  >
-                    <Check
-                      size={17}
-                      strokeWidth={1.7}
-                      className="text-[#6999AD]"
-                    />
-
-                    {product}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* BOTTOM ACTIONS */}
-            <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              {/* PREVIOUS */}
-              <button
-                type="button"
-                onClick={previousBundle}
-                aria-label="Previous bundle"
-                className="border-primary/15 text-primary hidden h-12 w-12 items-center justify-center rounded-full border bg-white/75 transition-colors hover:bg-white sm:flex"
-              >
-                <ArrowRight
-                  size={19}
-                  strokeWidth={1.5}
-                  className="rotate-180"
-                />
-              </button>
-
-              {/* EXPLORE */}
-              <Link
-                href={activeBundle.href}
-                className="group/button bg-primary flex min-h-[56px] w-full max-w-[290px] items-center justify-between gap-5 rounded-full py-1.5 pr-1.5 pl-7 font-sans text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-[#0A4968]"
-              >
-                Explore This Set
-                <span className="text-primary flex h-11 w-11 items-center justify-center rounded-full bg-[#D8EDF3] transition-transform duration-300 group-hover/button:rotate-45">
-                  <ArrowUpRight size={20} strokeWidth={1.5} />
-                </span>
-              </Link>
-
-              {/* NEXT */}
-              <button
-                type="button"
-                onClick={nextBundle}
-                aria-label="Next bundle"
-                className="border-primary/15 text-primary hidden h-12 w-12 items-center justify-center rounded-full border bg-white/75 transition-colors hover:bg-white sm:flex"
-              >
-                <ArrowRight size={19} strokeWidth={1.5} />
-              </button>
-            </div>
-
-            {/* PRICE, IF AVAILABLE */}
-            {activeBundle.price != null && (
-              <p className="text-primary mt-4 text-center font-sans text-[20px] font-semibold">
-                ${Number(activeBundle.price).toFixed(2)}
+            <div className="border-primary/10 mx-auto mt-6 max-w-[900px] border-t pt-5 text-center">
+              <p className="text-primary font-sans text-[14px] font-semibold">
+                Included in this set
               </p>
-            )}
-          </div>
-
-          {/* BOTTOM DECORATIVE NUMBER */}
-          <div className="font-heading text-primary/5 pointer-events-none absolute right-7 bottom-6 hidden text-[60px] leading-none lg:block">
-            0{activeIndex + 1}
+              <p className="text-primary/65 mt-2 font-sans text-[14px] leading-[1.7]">
+                {bundle.productHandles
+                  .map((handle) => getProductByHandle(handle)?.name || handle)
+                  .join("  ·  ")}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveIndex(
+                      (activeIndex - 1 + published.length) % published.length,
+                    )
+                  }
+                  aria-label="Previous bundle"
+                  className="border-primary/15 text-primary flex h-11 w-11 items-center justify-center rounded-full border bg-white/80"
+                >
+                  <ArrowRight size={18} className="rotate-180" />
+                </button>
+                <Link
+                  href={`/bundles/${bundle.handle}`}
+                  className="group bg-primary flex min-h-[52px] items-center gap-5 rounded-full py-1 pr-1 pl-6 font-sans text-[15px] font-semibold text-white"
+                >
+                  View Bundle & Shop{" "}
+                  <span className="text-primary flex h-10 w-10 items-center justify-center rounded-full bg-[#D8EDF3]">
+                    <ArrowUpRight
+                      size={19}
+                      className="transition-transform group-hover:rotate-45"
+                    />
+                  </span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveIndex((activeIndex + 1) % published.length)
+                  }
+                  aria-label="Next bundle"
+                  className="border-primary/15 text-primary flex h-11 w-11 items-center justify-center rounded-full border bg-white/80"
+                >
+                  <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* ANIMATIONS */}
       <style jsx global>{`
         @keyframes bundleReveal {
           from {
             opacity: 0;
-            transform: translateY(12px);
+            transform: translateY(10px);
           }
-
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
-
         @keyframes bundleFeatureIn {
           from {
             opacity: 0;
-            transform: translateY(22px) scale(0.96);
+            transform: translateY(20px) scale(0.96);
           }
-
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          [class*="animate-"] {
-            animation-duration: 0.01ms;
-            animation-delay: 0ms;
           }
         }
       `}</style>

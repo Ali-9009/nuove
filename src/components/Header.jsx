@@ -41,11 +41,15 @@ const navLinks = [
   },
   {
     name: "Our Story",
-    href: "/pages/our-story",
+    href: "/our-story",
+  },
+  {
+    name: "Find Your Routine",
+    href: "/find-your-routine",
   },
   {
     name: "Contact",
-    href: "/pages/contact",
+    href: "/contact",
   },
 ];
 
@@ -422,7 +426,9 @@ export default function Header() {
                           aria-expanded={isOpen}
                           aria-controls="header-mega-menu"
                           onClick={(event) =>
-                            setActiveMega(event.detail === 0 && isOpen ? null : link.name)
+                            setActiveMega(
+                              event.detail === 0 && isOpen ? null : link.name,
+                            )
                           }
                           className={`flex min-h-9 items-center gap-1.5 rounded-full px-4 font-sans text-[14px] font-medium transition-all duration-300 ${
                             isOpen
@@ -459,7 +465,9 @@ export default function Header() {
             </nav>
 
             {/* RIGHT ICONS */}
-            <div className={`${h.tools} flex items-center justify-end gap-0.5 sm:gap-1.5`}>
+            <div
+              className={`${h.tools} flex items-center justify-end gap-0.5 sm:gap-1.5`}
+            >
               <button
                 type="button"
                 aria-label="Search products"
